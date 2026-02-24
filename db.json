@@ -1,0 +1,394 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "employeeId": "2401",
+      "name": "김지수",
+      "department": "생산팀",
+      "position": "주임",
+      "username": "admin",
+      "password": "admin1234",
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-01"
+    },
+    {
+      "id": "2",
+      "employeeId": "2402",
+      "name": "이민준",
+      "department": "품질팀",
+      "position": "사원",
+      "username": "user01",
+      "password": "user1234",
+      "role": "USER",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-02"
+    },
+    {
+      "id": "3",
+      "employeeId": "2403",
+      "name": "박서연",
+      "department": "설비팀",
+      "position": "대리",
+      "username": "user02",
+      "password": "user1234",
+      "role": "USER",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-03"
+    },
+    {
+      "id": "4",
+      "employeeId": "2404",
+      "name": "최준혁",
+      "department": "생산팀",
+      "position": "사원",
+      "username": "user03",
+      "password": "user1234",
+      "role": "USER",
+      "status": "INACTIVE",
+      "createdAt": "2024-01-04"
+    },
+    {
+      "id": "80da",
+      "employeeId": "2405",
+      "name": "하나래",
+      "department": "품질팀",
+      "position": "주임",
+      "username": "ghdrlfehd",
+      "password": "ghdrlfehd",
+      "role": "USER",
+      "status": "ACTIVE",
+      "createdAt": "2026-02-24"
+    }
+  ],
+  "workOrders": [
+    {
+      "id": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "plannedQty": 500,
+      "completedQty": 487,
+      "status": "COMPLETED",
+      "assignedLine": "라인 A",
+      "startDate": "2024-01-15",
+      "dueDate": "2024-01-17"
+    },
+    {
+      "id": "WO-2024-002",
+      "productName": "기어박스 B타입",
+      "plannedQty": 300,
+      "completedQty": 180,
+      "status": "IN_PROGRESS",
+      "assignedLine": "라인 B",
+      "startDate": "2024-01-16",
+      "dueDate": "2024-01-19"
+    },
+    {
+      "id": "WO-2024-003",
+      "productName": "샤프트 C타입",
+      "plannedQty": 800,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "라인 A",
+      "startDate": "2024-01-17",
+      "dueDate": "2024-01-21"
+    },
+    {
+      "id": "WO-2024-004",
+      "productName": "베어링 D타입",
+      "plannedQty": 1200,
+      "completedQty": 640,
+      "status": "IN_PROGRESS",
+      "assignedLine": "라인 C",
+      "startDate": "2024-01-18",
+      "dueDate": "2024-01-22"
+    },
+    {
+      "id": "WO-2024-005",
+      "productName": "커넥팅 로드 E",
+      "plannedQty": 400,
+      "completedQty": 400,
+      "status": "COMPLETED",
+      "assignedLine": "라인 B",
+      "startDate": "2024-01-10",
+      "dueDate": "2024-01-13"
+    },
+    {
+      "id": "WO-2024-006",
+      "productName": "피스톤 F타입",
+      "plannedQty": 600,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "라인 D",
+      "startDate": "2024-01-20",
+      "dueDate": "2024-01-24"
+    },
+    {
+      "id": "WO-2024-007",
+      "productName": "실린더 헤드 G",
+      "plannedQty": 250,
+      "completedQty": 250,
+      "status": "COMPLETED",
+      "assignedLine": "라인 A",
+      "startDate": "2024-01-08",
+      "dueDate": "2024-01-11"
+    },
+    {
+      "id": "WO-2024-008",
+      "productName": "크랭크샤프트 H",
+      "plannedQty": 180,
+      "completedQty": 90,
+      "status": "IN_PROGRESS",
+      "assignedLine": "라인 C",
+      "startDate": "2024-01-19",
+      "dueDate": "2024-01-23"
+    },
+    {
+      "id": "WO-2024-009",
+      "productName": "캠샤프트 I타입",
+      "plannedQty": 350,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "라인 B",
+      "startDate": "2024-01-22",
+      "dueDate": "2024-01-25"
+    },
+    {
+      "id": "WO-2024-010",
+      "productName": "밸브 스프링 J",
+      "plannedQty": 2000,
+      "completedQty": 2000,
+      "status": "COMPLETED",
+      "assignedLine": "라인 D",
+      "startDate": "2024-01-05",
+      "dueDate": "2024-01-09"
+    },
+    {
+      "id": "WO-2024-011",
+      "productName": "타이밍 체인 K",
+      "plannedQty": 500,
+      "completedQty": 210,
+      "status": "IN_PROGRESS",
+      "assignedLine": "라인 A",
+      "startDate": "2024-01-20",
+      "dueDate": "2024-01-24"
+    },
+    {
+      "id": "WO-2024-012",
+      "productName": "오일 펌프 L",
+      "plannedQty": 150,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "라인 C",
+      "startDate": "2024-01-23",
+      "dueDate": "2024-01-26"
+    }
+  ],
+  "productionResults": [
+    {
+      "id": "1",
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 487,
+      "defectQty": 13,
+      "startTime": "2024-01-15T08:00:00",
+      "endTime": "2024-01-15T17:00:00",
+      "operatorId": "2401",
+      "note": ""
+    },
+    {
+      "id": "2",
+      "workOrderId": "WO-2024-002",
+      "productName": "기어박스 B타입",
+      "producedQty": 180,
+      "defectQty": 3,
+      "startTime": "2024-01-16T08:00:00",
+      "endTime": "2024-01-16T13:00:00",
+      "operatorId": "2402",
+      "note": "오후 라인 점검으로 작업 중단"
+    },
+    {
+      "id": "3",
+      "workOrderId": "WO-2024-005",
+      "productName": "커넥팅 로드 E",
+      "producedQty": 400,
+      "defectQty": 5,
+      "startTime": "2024-01-10T08:00:00",
+      "endTime": "2024-01-10T18:30:00",
+      "operatorId": "2401",
+      "note": ""
+    },
+    {
+      "id": "4",
+      "workOrderId": "WO-2024-007",
+      "productName": "실린더 헤드 G",
+      "producedQty": 250,
+      "defectQty": 2,
+      "startTime": "2024-01-08T09:00:00",
+      "endTime": "2024-01-08T16:00:00",
+      "operatorId": "2403",
+      "note": ""
+    },
+    {
+      "id": "5",
+      "workOrderId": "WO-2024-008",
+      "productName": "크랭크샤프트 H",
+      "producedQty": 90,
+      "defectQty": 1,
+      "startTime": "2024-01-19T08:00:00",
+      "endTime": "2024-01-19T14:00:00",
+      "operatorId": "2402",
+      "note": ""
+    },
+    {
+      "id": "6",
+      "workOrderId": "WO-2024-010",
+      "productName": "밸브 스프링 J",
+      "producedQty": 2000,
+      "defectQty": 18,
+      "startTime": "2024-01-05T08:00:00",
+      "endTime": "2024-01-05T19:00:00",
+      "operatorId": "2401",
+      "note": "야간 연장 작업 포함"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "1",
+      "equipmentCode": "EQ-001",
+      "equipmentName": "CNC 가공기 #1",
+      "line": "라인 A",
+      "status": "RUNNING",
+      "operationRate": 87.5
+    },
+    {
+      "id": "2",
+      "equipmentCode": "EQ-002",
+      "equipmentName": "CNC 가공기 #2",
+      "line": "라인 A",
+      "status": "RUNNING",
+      "operationRate": 92.3
+    },
+    {
+      "id": "3",
+      "equipmentCode": "EQ-003",
+      "equipmentName": "프레스기 #1",
+      "line": "라인 B",
+      "status": "MAINTENANCE",
+      "operationRate": 0
+    },
+    {
+      "id": "4",
+      "equipmentCode": "EQ-004",
+      "equipmentName": "프레스기 #2",
+      "line": "라인 B",
+      "status": "RUNNING",
+      "operationRate": 78.9
+    },
+    {
+      "id": "5",
+      "equipmentCode": "EQ-005",
+      "equipmentName": "용접 로봇 #1",
+      "line": "라인 C",
+      "status": "RUNNING",
+      "operationRate": 95.1
+    },
+    {
+      "id": "6",
+      "equipmentCode": "EQ-006",
+      "equipmentName": "용접 로봇 #2",
+      "line": "라인 C",
+      "status": "STOPPED",
+      "operationRate": 0
+    },
+    {
+      "id": "7",
+      "equipmentCode": "EQ-007",
+      "equipmentName": "컨베이어 벨트 #1",
+      "line": "라인 D",
+      "status": "RUNNING",
+      "operationRate": 88.4
+    },
+    {
+      "id": "8",
+      "equipmentCode": "EQ-008",
+      "equipmentName": "조립 로봇 #1",
+      "line": "라인 D",
+      "status": "RUNNING",
+      "operationRate": 91.7
+    }
+  ],
+  "hourlyProduction": [
+    {
+      "id": "1",
+      "hour": "08:00",
+      "planned": 60,
+      "actual": 58
+    },
+    {
+      "id": "2",
+      "hour": "09:00",
+      "planned": 60,
+      "actual": 62
+    },
+    {
+      "id": "3",
+      "hour": "10:00",
+      "planned": 60,
+      "actual": 55
+    },
+    {
+      "id": "4",
+      "hour": "11:00",
+      "planned": 60,
+      "actual": 63
+    },
+    {
+      "id": "5",
+      "hour": "12:00",
+      "planned": 30,
+      "actual": 28
+    },
+    {
+      "id": "6",
+      "hour": "13:00",
+      "planned": 60,
+      "actual": 61
+    },
+    {
+      "id": "7",
+      "hour": "14:00",
+      "planned": 60,
+      "actual": 57
+    },
+    {
+      "id": "8",
+      "hour": "15:00",
+      "planned": 60,
+      "actual": 65
+    },
+    {
+      "id": "9",
+      "hour": "16:00",
+      "planned": 60,
+      "actual": 59
+    },
+    {
+      "id": "10",
+      "hour": "17:00",
+      "planned": 60,
+      "actual": 62
+    }
+  ],
+  "dashboardSummary": [
+    {
+      "id": "1",
+      "date": "2024-01-19",
+      "plannedQty": 1800,
+      "actualQty": 1560,
+      "achievementRate": 86.7,
+      "defectRate": 1.8,
+      "activeEquipment": 6,
+      "totalEquipment": 8
+    }
+  ]
+}
