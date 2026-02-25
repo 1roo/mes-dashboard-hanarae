@@ -25,6 +25,8 @@ npm i -D tailwindcss @tailwindcss/vite
 
 ```bash
 npm install
+npm install -g json-server
+
 # 프론트엔드 실행
 npm run dev
 
