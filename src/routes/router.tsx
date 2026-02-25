@@ -1,16 +1,26 @@
 import React, { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import LoginPage from "../pages/LoginPage";
+import LoginPage from "../pages/login/LoginPage";
 import PrivateLayout from "../layout/PrivateLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
+import IndexRedirect from "./IndexRedirect";
 
-// const UserInfo = React.lazy(() => import("../pages/UserInfo"));
-
-const DashBoardPage = React.lazy(() => import("../pages/DashBoardPage"));
-const UserManagement = React.lazy(() => import("../pages/UserManagement"));
+const PerformancePage = React.lazy(
+  () => import("../pages/performance/PerformancePage"),
+);
+const WorkOrdersPage = React.lazy(
+  () => import("../pages/workOrders/WorkOrdersPage"),
+);
+const DashBoardPage = React.lazy(
+  () => import("../pages/dashboard/DashBoardPage"),
+);
+const UserManagementPage = React.lazy(
+  () => import("../pages/users/UserManagementPage"),
+);
 
 export const router = createBrowserRouter([
-  { path: "/", element: <LoginPage /> },
+  { path: "/", element: <IndexRedirect /> },
+  { path: "/login", element: <LoginPage /> },
 
   {
     element: <ProtectedRoute />,
@@ -18,14 +28,22 @@ export const router = createBrowserRouter([
       {
         element: <PrivateLayout />,
         children: [
-          // {
-          //   path: "/userinfo",
-          //   element: (
-          //     <Suspense fallback={<div>로딩중</div>}>
-          //       <UserInfo />
-          //     </Suspense>
-          //   ),
-          // },
+          {
+            path: "/performance",
+            element: (
+              <Suspense fallback={<div>로딩중</div>}>
+                <PerformancePage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "/workOrders",
+            element: (
+              <Suspense fallback={<div>로딩중</div>}>
+                <WorkOrdersPage />
+              </Suspense>
+            ),
+          },
           {
             path: "/dashboard",
             element: (
@@ -38,7 +56,7 @@ export const router = createBrowserRouter([
             path: "/users",
             element: (
               <Suspense fallback={<div>로딩중</div>}>
-                <UserManagement />
+                <UserManagementPage />
               </Suspense>
             ),
           },

@@ -13,6 +13,31 @@ npm install
 ```bash
 # 라우팅
 npm i react-router-dom
+
+# Shadcn/ui 초기화
+npx shadcn@latest init
+
+# 기본 UI 컴포넌트 설치
+npx shadcn@latest add button
+npx shadcn@latest add dialog
+npx shadcn@latest add input
+npx shadcn@latest add label
+npx shadcn@latest add select
+npx shadcn@latest add checkbox
+npx shadcn@latest add radio-group
+npx shadcn@latest add switch
+npx shadcn@latest add tabs
+npx shadcn@latest add toast
+npx shadcn@latest add tooltip
+npx shadcn@latest add popover
+npx shadcn@latest add dropdown-menu
+npx shadcn@latest add sidebar
+npx shadcn@latest add date-picker
+npx shadcn@latest add accordion
+npx shadcn@latest add sheet
+npx shadcn@latest add badge
+npx shadcn@latest add separator
+
 ```
 
 ## 3단계: tailwind css 설치
@@ -39,6 +64,7 @@ npm run server(db.json 가짜 API)
 ```bash
 - [로그인]
 - [계정관리/등록]
+- [작업지시목록]
 ```
 
 ## 기타사항

@@ -1,44 +1,59 @@
 import React, { useMemo, useState } from "react";
-import { getCookie, removeCookie, setCookie } from "../utils/cookie";
 import { type User, AuthContext } from "./AuthContext";
 
-const AUTH_COOKIE = "auth";
-const USER_COOKIE = "user_id";
+const AUTH_KEY = "auth_user";
 
-function readAuthFromCookies(): { isLoggedIn: boolean; user: User | null } {
-  const auth = getCookie(AUTH_COOKIE);
-  const userId = getCookie(USER_COOKIE);
-
-  if (auth === "1" && userId) {
-    return { isLoggedIn: true, user: { id: decodeURIComponent(userId) } };
+function safeParseUser(raw: string | null): User | null {
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as User;
+  } catch {
+    return null;
   }
+}
+
+function readAuth(): { isLoggedIn: boolean; user: User | null } {
+  const fromLocal = safeParseUser(localStorage.getItem(AUTH_KEY));
+  if (fromLocal) return { isLoggedIn: true, user: fromLocal };
+
+  const fromSession = safeParseUser(sessionStorage.getItem(AUTH_KEY));
+  if (fromSession) return { isLoggedIn: true, user: fromSession };
+
   return { isLoggedIn: false, user: null };
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const initial = readAuthFromCookies();
+  const initial = readAuth();
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(initial.isLoggedIn);
   const [user, setUser] = useState<User | null>(initial.user);
   const [loading, setLoading] = useState(false);
 
   const initializeLoginState = () => {
-    const next = readAuthFromCookies();
+    const next = readAuth();
     setIsLoggedIn(next.isLoggedIn);
     setUser(next.user);
     setLoading(false);
   };
 
-  const login = (u: User) => {
-    setCookie(AUTH_COOKIE, "1", 1);
-    setCookie(USER_COOKIE, u.id, 1);
+  const login = (u: User, keepLogin: boolean) => {
+    const raw = JSON.stringify(u);
+
+    if (keepLogin) {
+      localStorage.setItem(AUTH_KEY, raw);
+      sessionStorage.removeItem(AUTH_KEY);
+    } else {
+      sessionStorage.setItem(AUTH_KEY, raw);
+      localStorage.removeItem(AUTH_KEY);
+    }
+
     setIsLoggedIn(true);
     setUser(u);
   };
 
   const logout = () => {
-    removeCookie(AUTH_COOKIE);
-    removeCookie(USER_COOKIE);
+    localStorage.removeItem(AUTH_KEY);
+    sessionStorage.removeItem(AUTH_KEY);
     setIsLoggedIn(false);
     setUser(null);
   };

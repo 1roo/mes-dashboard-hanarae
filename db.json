@@ -59,6 +59,18 @@
       "role": "USER",
       "status": "ACTIVE",
       "createdAt": "2026-02-24"
+    },
+    {
+      "id": "6b77",
+      "employeeId": "3333",
+      "name": "홍길동",
+      "department": "생산팀",
+      "position": "사원",
+      "username": "hong",
+      "password": "ghdrlfehd",
+      "role": "USER",
+      "status": "INACTIVE",
+      "createdAt": "2026-02-25"
     }
   ],
   "workOrders": [
@@ -181,6 +193,26 @@
       "assignedLine": "라인 C",
       "startDate": "2024-01-23",
       "dueDate": "2024-01-26"
+    },
+    {
+      "id": "abcde",
+      "productName": "abc",
+      "plannedQty": 30,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-02-26",
+      "dueDate": "2026-03-01"
+    },
+    {
+      "id": "f",
+      "productName": "ff",
+      "plannedQty": 33,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-02-27",
+      "dueDate": "2026-03-02"
     }
   ],
   "productionResults": [
