@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { type User } from "./types";
 import {
   Table,
   TableHeader,
@@ -10,6 +9,7 @@ import {
   TableCell,
 } from "../../shared/ui/Table";
 import Spinner from "../../shared/ui/Spinner";
+import type { User } from "../../shared/types";
 
 type Props = {
   users: User[];
