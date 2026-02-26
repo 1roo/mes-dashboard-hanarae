@@ -31,18 +31,22 @@ export const useLogin = () => {
     e.preventDefault();
 
     try {
-      const res = await instance.get("/users", {
-        params: { username: id.trim(), password: pw },
+      const res = await instance.post("/auth/login", {
+        username: id.trim(),
+        password: pw,
       });
 
-      const matched = res.data as DbUser[];
+      const user = res.data as DbUser | null;
 
-      if (!matched.length) {
+      if (!user) {
         toast.error("아이디 또는 비밀번호가 올바르지 않습니다.");
         return;
       }
 
-      const user = matched[0];
+      if (user.status !== "ACTIVE") {
+        toast.error("비활성화된 계정입니다.");
+        return;
+      }
 
       setSaveLogin(keepLogin);
 
@@ -50,7 +54,13 @@ export const useLogin = () => {
       const from =
         (location.state as { from?: string } | null)?.from || defaultPath;
 
-      login({ id: user.username, role: user.role }, keepLogin);
+      login(
+        {
+          id: user.username,
+          role: user.role,
+        },
+        keepLogin,
+      );
 
       navigate(from, { replace: true });
     } catch (err) {
