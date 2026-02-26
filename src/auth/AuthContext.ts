@@ -5,6 +5,7 @@ export type Role = "ADMIN" | "USER";
 export type User = {
   id: string;
   role: Role;
+  employeeId: string;
 };
 
 export type AuthContextType = {

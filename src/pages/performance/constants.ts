@@ -4,3 +4,5 @@ export const formatDateTime = (iso: string) => {
   const time = iso.slice(11, 16);
   return `${date} ${time}`;
 };
+
+export const PAGE_SIZE = 10;

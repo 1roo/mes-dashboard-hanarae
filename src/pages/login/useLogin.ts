@@ -58,6 +58,7 @@ export const useLogin = () => {
         {
           id: user.username,
           role: user.role,
+          employeeId: user.employeeId,
         },
         keepLogin,
       );

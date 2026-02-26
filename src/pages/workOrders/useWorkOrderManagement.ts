@@ -4,6 +4,7 @@ import { instance } from "../../shared/axios/axios";
 
 import { PAGE_SIZE, initialNewWorkOrderForm } from "./constants";
 import type { NewWorkOrderForm, Status, WorkOrder } from "./types";
+import { useAuth } from "../../auth/useAuth";
 
 const calcDueDate = (startDate: string, addDays = 3) => {
   const d = new Date(startDate);
@@ -50,6 +51,8 @@ export const useWorkOrderManagement = () => {
   );
 
   const [page, setPage] = useState(1);
+
+  const { user } = useAuth();
 
   const fetchWorkOrders = async () => {
     setLoading(true);
@@ -120,6 +123,8 @@ export const useWorkOrderManagement = () => {
       toast.error(msg);
       return;
     }
+
+    console.log("auth user:", user);
 
     const payload: WorkOrder = {
       id: newForm.id.trim(),

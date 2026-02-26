@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   Table,
   TableHeader,
@@ -13,6 +14,7 @@ import { formatDateTime } from "./constants";
 type Props = {
   rows: Performance[];
   loading: boolean;
+  // 에러 해결: 상위에서 넘겨주는 nameByEmployeeId 타입을 추가합니다.
   nameByEmployeeId: Map<string, string>;
 };
 
@@ -27,7 +29,7 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
             <TableHead className="text-white font-bold">생산수량</TableHead>
             <TableHead className="text-white font-bold">불량수량</TableHead>
             <TableHead className="text-white font-bold">시작일시</TableHead>
-            <TableHead className="text-white font-bold">등록자</TableHead>
+            <TableHead className="text-white font-bold">담당자</TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
@@ -51,8 +53,9 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
 
           {!loading &&
             rows.map((r) => {
+              // Map 객체에서 operatorId를 키로 이름을 찾습니다.
               const operatorName =
-                nameByEmployeeId.get(r.operatorId) ?? "(알 수 없음)";
+                nameByEmployeeId.get(r.operatorId) || r.operatorId || "-";
 
               return (
                 <TableRow key={r.id}>
@@ -67,7 +70,8 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
                   <TableCell className="whitespace-nowrap">
                     {formatDateTime(r.startTime)}
                   </TableCell>
-                  <TableCell className="max-w-24 truncate">
+                  {/* 매핑된 담당자 이름 출력 */}
+                  <TableCell className="max-w-24 truncate font-medium">
                     {operatorName}
                   </TableCell>
                   <TableCell />

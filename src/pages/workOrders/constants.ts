@@ -1,6 +1,6 @@
 import type { NewWorkOrderForm, Status } from "./types";
 
-export const PAGE_SIZE = 5;
+export const PAGE_SIZE = 10;
 
 export const initialNewWorkOrderForm: NewWorkOrderForm = {
   id: "",

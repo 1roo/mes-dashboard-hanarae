@@ -6,12 +6,15 @@ const AUTH_KEY = "auth_user";
 function safeParseUser(raw: string | null): User | null {
   if (!raw) return null;
   try {
-    const parsed = JSON.parse(raw) as User;
-
-    if (!parsed?.id) return null;
-    if (parsed.role !== "ADMIN" && parsed.role !== "USER") return null;
-
-    return parsed;
+    const parsed = JSON.parse(raw) as Partial<User>;
+    if (
+      typeof parsed.id !== "string" ||
+      (parsed.role !== "ADMIN" && parsed.role !== "USER") ||
+      typeof parsed.employeeId !== "string"
+    ) {
+      return null;
+    }
+    return parsed as User;
   } catch {
     return null;
   }
