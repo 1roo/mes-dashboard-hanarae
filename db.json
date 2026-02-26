@@ -1,88 +1,92 @@
 {
-  "users": [
+  "dashboardSummary": [
     {
-      "id": "1",
-      "employeeId": "2401",
-      "name": "김지수",
-      "department": "생산팀",
-      "position": "주임",
-      "username": "admin",
-      "password": "admin1234",
-      "role": "ADMIN",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-01"
+      "id": 1,
+      "date": "2024-01-19",
+      "plannedQty": 1800,
+      "actualQty": 1560,
+      "achievementRate": 86.7,
+      "defectRate": 1.8,
+      "activeEquipment": 6,
+      "totalEquipment": 8
+    }
+  ],
+  "hourlyProduction": [
+    { "id": 1, "hour": "08:00", "planned": 60, "actual": 58 },
+    { "id": 2, "hour": "09:00", "planned": 60, "actual": 62 },
+    { "id": 3, "hour": "10:00", "planned": 60, "actual": 55 },
+    { "id": 4, "hour": "11:00", "planned": 60, "actual": 63 },
+    { "id": 5, "hour": "12:00", "planned": 30, "actual": 28 },
+    { "id": 6, "hour": "13:00", "planned": 60, "actual": 61 },
+    { "id": 7, "hour": "14:00", "planned": 60, "actual": 57 },
+    { "id": 8, "hour": "15:00", "planned": 60, "actual": 65 },
+    { "id": 9, "hour": "16:00", "planned": 60, "actual": 59 },
+    { "id": 10, "hour": "17:00", "planned": 60, "actual": 62 }
+  ],
+  "equipment": [
+    {
+      "id": 1,
+      "equipmentCode": "EQ-001",
+      "equipmentName": "CNC 가공기 #1",
+      "line": "라인 A",
+      "status": "RUNNING",
+      "operationRate": 87.5
     },
     {
-      "id": "2",
-      "employeeId": "2402",
-      "name": "이민준",
-      "department": "품질팀",
-      "position": "사원",
-      "username": "user01",
-      "password": "user1234",
-      "role": "USER",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-02"
+      "id": 2,
+      "equipmentCode": "EQ-002",
+      "equipmentName": "CNC 가공기 #2",
+      "line": "라인 A",
+      "status": "RUNNING",
+      "operationRate": 92.3
     },
     {
-      "id": "3",
-      "employeeId": "2403",
-      "name": "박서연",
-      "department": "설비팀",
-      "position": "대리",
-      "username": "user02",
-      "password": "user1234",
-      "role": "USER",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-03"
+      "id": 3,
+      "equipmentCode": "EQ-003",
+      "equipmentName": "프레스기 #1",
+      "line": "라인 B",
+      "status": "MAINTENANCE",
+      "operationRate": 0
     },
     {
-      "id": "4",
-      "employeeId": "2404",
-      "name": "최준혁",
-      "department": "생산팀",
-      "position": "사원",
-      "username": "user03",
-      "password": "user1234",
-      "role": "USER",
-      "status": "INACTIVE",
-      "createdAt": "2024-01-04"
+      "id": 4,
+      "equipmentCode": "EQ-004",
+      "equipmentName": "프레스기 #2",
+      "line": "라인 B",
+      "status": "RUNNING",
+      "operationRate": 78.9
     },
     {
-      "id": "80da",
-      "employeeId": "2405",
-      "name": "하나래",
-      "department": "품질팀",
-      "position": "주임",
-      "username": "ghdrlfehd",
-      "password": "ghdrlfehd",
-      "role": "USER",
-      "status": "ACTIVE",
-      "createdAt": "2026-02-24"
+      "id": 5,
+      "equipmentCode": "EQ-005",
+      "equipmentName": "용접 로봇 #1",
+      "line": "라인 C",
+      "status": "RUNNING",
+      "operationRate": 95.1
     },
     {
-      "id": "6b77",
-      "employeeId": "3333",
-      "name": "홍길동",
-      "department": "생산팀",
-      "position": "사원",
-      "username": "hong",
-      "password": "ghdrlfehd",
-      "role": "USER",
-      "status": "INACTIVE",
-      "createdAt": "2026-02-25"
+      "id": 6,
+      "equipmentCode": "EQ-006",
+      "equipmentName": "용접 로봇 #2",
+      "line": "라인 C",
+      "status": "STOPPED",
+      "operationRate": 0
     },
     {
-      "employeeId": "1111",
-      "name": "테스트",
-      "department": "생산팀",
-      "position": "대리",
-      "username": "test1111",
-      "password": "test1111",
-      "role": "ADMIN",
-      "status": "INACTIVE",
-      "createdAt": "2026-02-26",
-      "id": "oceuFdD"
+      "id": 7,
+      "equipmentCode": "EQ-007",
+      "equipmentName": "컨베이어 벨트 #1",
+      "line": "라인 D",
+      "status": "RUNNING",
+      "operationRate": 88.4
+    },
+    {
+      "id": 8,
+      "equipmentCode": "EQ-008",
+      "equipmentName": "조립 로봇 #1",
+      "line": "라인 D",
+      "status": "RUNNING",
+      "operationRate": 91.7
     }
   ],
   "workOrders": [
@@ -205,97 +209,11 @@
       "assignedLine": "라인 C",
       "startDate": "2024-01-23",
       "dueDate": "2024-01-26"
-    },
-    {
-      "id": "abcde",
-      "productName": "abc",
-      "plannedQty": 30,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-02-26",
-      "dueDate": "2026-03-01"
-    },
-    {
-      "id": "f",
-      "productName": "ff",
-      "plannedQty": 33,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-02-27",
-      "dueDate": "2026-03-02"
-    },
-    {
-      "id": "test",
-      "productName": "test1",
-      "plannedQty": 222,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-02-28",
-      "dueDate": "2026-03-03",
-      "name": "admin"
-    },
-    {
-      "id": "tttt",
-      "productName": "ttt",
-      "plannedQty": 33,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-03-02",
-      "dueDate": "2026-03-05",
-      "name": "admin"
-    },
-    {
-      "id": "ㅕㅕㅕ",
-      "productName": "ㅕㅕㅕ",
-      "plannedQty": 6666,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-02-28",
-      "dueDate": "2026-03-03",
-      "name": "admin"
-    },
-    {
-      "id": "5",
-      "productName": "5",
-      "plannedQty": 5,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-02-27",
-      "dueDate": "2026-03-02",
-      "name": "admin"
-    },
-    {
-      "id": "4444",
-      "productName": "44444",
-      "plannedQty": 444,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-03-02",
-      "dueDate": "2026-03-05",
-      "name": "admin"
-    },
-    {
-      "id": "888",
-      "productName": "888",
-      "plannedQty": 888,
-      "completedQty": 0,
-      "status": "PENDING",
-      "assignedLine": "",
-      "startDate": "2026-03-06",
-      "dueDate": "2026-03-09",
-      "employeeId": "2401"
     }
   ],
   "productionResults": [
     {
-      "id": "1",
+      "id": 1,
       "workOrderId": "WO-2024-001",
       "productName": "모터 하우징 A",
       "producedQty": 487,
@@ -306,7 +224,7 @@
       "note": ""
     },
     {
-      "id": "2",
+      "id": 2,
       "workOrderId": "WO-2024-002",
       "productName": "기어박스 B타입",
       "producedQty": 180,
@@ -317,7 +235,7 @@
       "note": "오후 라인 점검으로 작업 중단"
     },
     {
-      "id": "3",
+      "id": 3,
       "workOrderId": "WO-2024-005",
       "productName": "커넥팅 로드 E",
       "producedQty": 400,
@@ -328,7 +246,7 @@
       "note": ""
     },
     {
-      "id": "4",
+      "id": 4,
       "workOrderId": "WO-2024-007",
       "productName": "실린더 헤드 G",
       "producedQty": 250,
@@ -339,7 +257,7 @@
       "note": ""
     },
     {
-      "id": "5",
+      "id": 5,
       "workOrderId": "WO-2024-008",
       "productName": "크랭크샤프트 H",
       "producedQty": 90,
@@ -350,7 +268,7 @@
       "note": ""
     },
     {
-      "id": "6",
+      "id": 6,
       "workOrderId": "WO-2024-010",
       "productName": "밸브 스프링 J",
       "producedQty": 2000,
@@ -359,244 +277,56 @@
       "endTime": "2024-01-05T19:00:00",
       "operatorId": "2401",
       "note": "야간 연장 작업 포함"
-    },
-    {
-      "workOrderId": "abcde",
-      "productName": "abc",
-      "producedQty": 555,
-      "defectQty": 4,
-      "startTime": "2025-01-01T01:01:00",
-      "endTime": "2025-02-02T02:02:00",
-      "note": "비고비고",
-      "id": "fhuSCfH"
-    },
-    {
-      "workOrderId": "test",
-      "productName": "test1",
-      "producedQty": 280,
-      "defectQty": 1,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "note": "비고비고",
-      "id": "QI3QxiS"
-    },
-    {
-      "workOrderId": "tttt",
-      "productName": "ttt",
-      "producedQty": 33,
-      "defectQty": 1,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "id": "sAtoLPI"
-    },
-    {
-      "workOrderId": "4444",
-      "productName": "44444",
-      "producedQty": 444,
-      "defectQty": 2,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "id": "1yYdtvu"
-    },
-    {
-      "workOrderId": "888",
-      "productName": "888",
-      "producedQty": 888,
-      "defectQty": 8,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "id": "1fpc0tl"
-    },
-    {
-      "workOrderId": "888",
-      "productName": "888",
-      "producedQty": 999,
-      "defectQty": 99,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "operatorId": "2401",
-      "id": "r2teXDA"
-    },
-    {
-      "workOrderId": "WO-2024-001",
-      "productName": "모터 하우징 A",
-      "producedQty": 33,
-      "defectQty": 3,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "operatorName": "김지수",
-      "note": "비고비고",
-      "id": "MwNAY3C"
-    },
-    {
-      "workOrderId": "WO-2024-001",
-      "productName": "모터 하우징 A",
-      "producedQty": 44,
-      "defectQty": 4,
-      "startTime": "2025-02-26T07:22:00",
-      "endTime": "2025-02-26T15:00:00",
-      "operatorName": "김지수",
-      "id": "AQ7C3eF"
-    },
-    {
-      "workOrderId": "WO-2024-002",
-      "productName": "기어박스 B타입",
-      "producedQty": 555,
-      "defectQty": 5,
-      "startTime": "2026-01-01T03:00:00",
-      "endTime": "2026-02-02T02:00:00",
-      "operatorName": "김지수",
-      "id": "KI0lJTJ"
-    },
-    {
-      "workOrderId": "WO-2024-001",
-      "productName": "모터 하우징 A",
-      "producedQty": 666,
-      "defectQty": 6,
-      "startTime": "2025-01-01T08:00:00",
-      "endTime": "2025-01-03T02:00:00",
-      "operatorId": "2405",
-      "id": "Ux_68EA"
     }
   ],
-  "equipment": [
+  "users": [
     {
-      "id": "1",
-      "equipmentCode": "EQ-001",
-      "equipmentName": "CNC 가공기 #1",
-      "line": "라인 A",
-      "status": "RUNNING",
-      "operationRate": 87.5
+      "id": 1,
+      "employeeId": "2401",
+      "name": "김지수",
+      "department": "생산팀",
+      "position": "주임",
+      "username": "admin",
+      "password": "admin1234",
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-01"
     },
     {
-      "id": "2",
-      "equipmentCode": "EQ-002",
-      "equipmentName": "CNC 가공기 #2",
-      "line": "라인 A",
-      "status": "RUNNING",
-      "operationRate": 92.3
+      "id": 2,
+      "employeeId": "2402",
+      "name": "이민준",
+      "department": "품질팀",
+      "position": "사원",
+      "username": "user01",
+      "password": "user1234",
+      "role": "USER",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-02"
     },
     {
-      "id": "3",
-      "equipmentCode": "EQ-003",
-      "equipmentName": "프레스기 #1",
-      "line": "라인 B",
-      "status": "MAINTENANCE",
-      "operationRate": 0
+      "id": 3,
+      "employeeId": "2403",
+      "name": "박서연",
+      "department": "설비팀",
+      "position": "대리",
+      "username": "user02",
+      "password": "user1234",
+      "role": "USER",
+      "status": "ACTIVE",
+      "createdAt": "2024-01-03"
     },
     {
-      "id": "4",
-      "equipmentCode": "EQ-004",
-      "equipmentName": "프레스기 #2",
-      "line": "라인 B",
-      "status": "RUNNING",
-      "operationRate": 78.9
-    },
-    {
-      "id": "5",
-      "equipmentCode": "EQ-005",
-      "equipmentName": "용접 로봇 #1",
-      "line": "라인 C",
-      "status": "RUNNING",
-      "operationRate": 95.1
-    },
-    {
-      "id": "6",
-      "equipmentCode": "EQ-006",
-      "equipmentName": "용접 로봇 #2",
-      "line": "라인 C",
-      "status": "STOPPED",
-      "operationRate": 0
-    },
-    {
-      "id": "7",
-      "equipmentCode": "EQ-007",
-      "equipmentName": "컨베이어 벨트 #1",
-      "line": "라인 D",
-      "status": "RUNNING",
-      "operationRate": 88.4
-    },
-    {
-      "id": "8",
-      "equipmentCode": "EQ-008",
-      "equipmentName": "조립 로봇 #1",
-      "line": "라인 D",
-      "status": "RUNNING",
-      "operationRate": 91.7
-    }
-  ],
-  "hourlyProduction": [
-    {
-      "id": "1",
-      "hour": "08:00",
-      "planned": 60,
-      "actual": 58
-    },
-    {
-      "id": "2",
-      "hour": "09:00",
-      "planned": 60,
-      "actual": 62
-    },
-    {
-      "id": "3",
-      "hour": "10:00",
-      "planned": 60,
-      "actual": 55
-    },
-    {
-      "id": "4",
-      "hour": "11:00",
-      "planned": 60,
-      "actual": 63
-    },
-    {
-      "id": "5",
-      "hour": "12:00",
-      "planned": 30,
-      "actual": 28
-    },
-    {
-      "id": "6",
-      "hour": "13:00",
-      "planned": 60,
-      "actual": 61
-    },
-    {
-      "id": "7",
-      "hour": "14:00",
-      "planned": 60,
-      "actual": 57
-    },
-    {
-      "id": "8",
-      "hour": "15:00",
-      "planned": 60,
-      "actual": 65
-    },
-    {
-      "id": "9",
-      "hour": "16:00",
-      "planned": 60,
-      "actual": 59
-    },
-    {
-      "id": "10",
-      "hour": "17:00",
-      "planned": 60,
-      "actual": 62
-    }
-  ],
-  "dashboardSummary": [
-    {
-      "id": "1",
-      "date": "2024-01-19",
-      "plannedQty": 1800,
-      "actualQty": 1560,
-      "achievementRate": 86.7,
-      "defectRate": 1.8,
-      "activeEquipment": 6,
-      "totalEquipment": 8
+      "id": 4,
+      "employeeId": "2404",
+      "name": "최준혁",
+      "department": "생산팀",
+      "position": "사원",
+      "username": "user03",
+      "password": "user1234",
+      "role": "USER",
+      "status": "INACTIVE",
+      "createdAt": "2024-01-04"
     }
   ]
 }
