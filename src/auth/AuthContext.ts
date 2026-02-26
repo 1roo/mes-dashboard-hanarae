@@ -1,7 +1,10 @@
 import { createContext } from "react";
 
+export type Role = "ADMIN" | "USER";
+
 export type User = {
   id: string;
+  role: Role;
 };
 
 export type AuthContextType = {

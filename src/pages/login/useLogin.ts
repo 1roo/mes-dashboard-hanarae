@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { instance } from "../../shared/axios/axios";
-import { saveUserToStorage, setSaveLogin } from "./loginStorage";
+import { setSaveLogin } from "./loginStorage";
 
 export type DbUser = {
   id: number | string;
@@ -45,18 +45,12 @@ export const useLogin = () => {
       const user = matched[0];
 
       setSaveLogin(keepLogin);
-      saveUserToStorage({
-        role: user.role,
-        username: user.username,
-        employeeId: user.employeeId,
-      });
 
       const defaultPath = "/dashboard";
-
       const from =
         (location.state as { from?: string } | null)?.from || defaultPath;
 
-      login({ id: user.username }, keepLogin);
+      login({ id: user.username, role: user.role }, keepLogin);
 
       navigate(from, { replace: true });
     } catch (err) {

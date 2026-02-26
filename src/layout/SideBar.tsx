@@ -1,18 +1,21 @@
 import React, { useMemo } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import { setSaveLogin } from "../pages/login/loginStorage";
+
+type Role = "ADMIN" | "USER";
 
 type MenuItem = {
   label: string;
   to: string;
-  roles?: Array<"ADMIN" | "USER">;
+  roles?: Role[];
 };
 
 const SideBar: React.FC = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
-  const role = (localStorage.getItem("role") as "ADMIN" | "USER") ?? "USER";
+  const role: Role = user?.role ?? "USER";
 
   const items: MenuItem[] = useMemo(
     () => [
@@ -24,19 +27,17 @@ const SideBar: React.FC = () => {
     [],
   );
 
-  const visibleItems = items.filter(
-    (it) => !it.roles || it.roles.includes(role),
+  const visibleItems = useMemo(
+    () => items.filter((it) => !it.roles || it.roles.includes(role)),
+    [items, role],
   );
 
   const onLogout = () => {
     logout();
 
-    localStorage.removeItem("role");
-    localStorage.removeItem("username");
-    localStorage.removeItem("employeeId");
-    localStorage.removeItem("saveLogin");
+    setSaveLogin(false);
 
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (

@@ -6,7 +6,12 @@ const AUTH_KEY = "auth_user";
 function safeParseUser(raw: string | null): User | null {
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as User;
+    const parsed = JSON.parse(raw) as User;
+
+    if (!parsed?.id) return null;
+    if (parsed.role !== "ADMIN" && parsed.role !== "USER") return null;
+
+    return parsed;
   } catch {
     return null;
   }
@@ -30,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(false);
 
   const initializeLoginState = () => {
+    setLoading(true);
     const next = readAuth();
     setIsLoggedIn(next.isLoggedIn);
     setUser(next.user);
