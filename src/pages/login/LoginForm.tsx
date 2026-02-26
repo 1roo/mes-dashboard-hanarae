@@ -32,8 +32,9 @@ const LoginForm = ({
 
         <div className="flex-row justify-center items-center">
           <div className="flex-row m-5 ml-6">
-            <p>아이디</p>
+            <label htmlFor="login-id">아이디</label>
             <input
+              id="login-id"
               className="w-84 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
               placeholder="사번 또는 아이디 입력"
               value={id}
@@ -42,8 +43,9 @@ const LoginForm = ({
           </div>
 
           <div className="flex-row m-5 ml-6">
-            <p>비밀번호</p>
+            <label htmlFor="password">비밀번호</label>
             <input
+              id="password"
               type="password"
               className="w-84 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
               placeholder="●●●●"
@@ -54,11 +56,14 @@ const LoginForm = ({
 
           <div className="flex-row m-5 ml-6 justify-center items-center">
             <input
+              id="keep-login"
               type="checkbox"
               checked={keepLogin}
               onChange={(e) => setKeepLogin(e.target.checked)}
             />
-            <span className="mx-2">로그인 유지</span>
+            <label htmlFor="keep-login" className="mx-2">
+              로그인 유지
+            </label>
           </div>
 
           <div className="flex-row justify-center items-center">
