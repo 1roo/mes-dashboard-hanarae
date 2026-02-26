@@ -4,19 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { instance } from "../../shared/axios/axios";
 import { setSaveLogin } from "./loginStorage";
-
-export type DbUser = {
-  id: number | string;
-  employeeId: string;
-  name: string;
-  department: string;
-  position: string;
-  username: string;
-  password: string;
-  role: "ADMIN" | "USER";
-  status: "ACTIVE" | "INACTIVE";
-  createdAt?: string;
-};
+import type { DbUser } from "../../shared/types";
 
 export const useLogin = () => {
   const [id, setId] = useState("");
