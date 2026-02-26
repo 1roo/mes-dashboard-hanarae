@@ -28,7 +28,6 @@ export const usePerformance = () => {
 
   useEffect(() => {
     fetchResults();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nameByEmployeeId = useMemo(() => {

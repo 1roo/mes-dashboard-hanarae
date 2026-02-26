@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import { useUserManagement } from "./useUserManagement";
 import UserTable from "./UserTable";
 import AddUserForm from "./AddUserForm";
@@ -6,11 +5,6 @@ import AddUserForm from "./AddUserForm";
 const UserManagementPage = () => {
   const { users, isAddOpen, setIsAddOpen, form, onChange, onSave } =
     useUserManagement();
-
-  const role = localStorage.getItem("role");
-  if (role !== "ADMIN") {
-    return <Navigate to="/dashboard" replace />;
-  }
 
   return (
     <div className="mx-auto">

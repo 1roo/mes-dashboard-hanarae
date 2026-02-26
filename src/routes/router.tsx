@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import LoginPage from "../pages/login/LoginPage";
 import PrivateLayout from "../layout/PrivateLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
-import IndexRedirect from "./IndexRedirect";
+import AdminRoute from "../auth/AdminRoute";
 
 const PerformancePage = React.lazy(
   () => import("../pages/performance/PerformancePage"),
@@ -19,8 +19,7 @@ const UserManagementPage = React.lazy(
 );
 
 export const router = createBrowserRouter([
-  { path: "/", element: <IndexRedirect /> },
-  { path: "/login", element: <LoginPage /> },
+  { path: "/", element: <LoginPage /> },
 
   {
     element: <ProtectedRoute />,
@@ -53,12 +52,17 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: "/users",
-            element: (
-              <Suspense fallback={<div>로딩중</div>}>
-                <UserManagementPage />
-              </Suspense>
-            ),
+            element: <AdminRoute />,
+            children: [
+              {
+                path: "/users",
+                element: (
+                  <Suspense fallback={<div>로딩중</div>}>
+                    <UserManagementPage />
+                  </Suspense>
+                ),
+              },
+            ],
           },
         ],
       },
