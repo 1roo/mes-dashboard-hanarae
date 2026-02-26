@@ -1,5 +1,8 @@
 import * as React from "react";
+import toast from "react-hot-toast";
 import { cn } from "../../shared/lib/utils";
+import { instance } from "../../shared/axios/axios";
+import Spinner from "../../shared/ui/Spinner";
 
 type WorkOrder = {
   id: string;
@@ -74,9 +77,14 @@ function useClickOutside<T extends HTMLElement>(
 
 const Modal = ({ onClose }: ModalProps) => {
   const [workOrders, setWorkOrders] = React.useState<WorkOrder[]>([]);
+  const [workOrdersLoading, setWorkOrdersLoading] = React.useState(false);
+  const [workOrdersError, setWorkOrdersError] = React.useState<string | null>(
+    null,
+  );
+
+  const [saving, setSaving] = React.useState(false);
 
   const [workOrderId, setWorkOrderId] = React.useState("");
-
   const [open, setOpen] = React.useState(false);
 
   const [producedQty, setProducedQty] = React.useState("");
@@ -93,15 +101,24 @@ const Modal = ({ onClose }: ModalProps) => {
   );
 
   React.useEffect(() => {
-    const saved = localStorage.getItem("workOrders");
-    if (!saved) return;
+    const fetchWorkOrders = async () => {
+      setWorkOrdersLoading(true);
+      setWorkOrdersError(null);
 
-    try {
-      const parsed: WorkOrder[] = JSON.parse(saved);
-      setWorkOrders(parsed);
-    } catch (err) {
-      console.error("workOrders 파싱 실패", err);
-    }
+      try {
+        const res = await instance.get<WorkOrder[]>("/workOrders");
+        setWorkOrders(res.data);
+      } catch (err) {
+        const msg = "작업지시 목록을 불러오지 못했습니다.";
+        setWorkOrdersError(msg);
+        toast.error(msg);
+        console.error(err);
+      } finally {
+        setWorkOrdersLoading(false);
+      }
+    };
+
+    fetchWorkOrders();
   }, []);
 
   const displayLabel = workOrderId || (workOrders[0]?.id ?? "작업지시 선택");
@@ -144,7 +161,7 @@ const Modal = ({ onClose }: ModalProps) => {
     return Object.keys(next).length === 0;
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!validate()) return;
 
     const payload = {
@@ -154,21 +171,44 @@ const Modal = ({ onClose }: ModalProps) => {
       defectQty: Number(defectQty),
       startTime: toDbDateTime(startTime),
       endTime: toDbDateTime(endTime),
-      operatorId: localStorage.getItem("operatorId") ?? "",
       note: note.trim() ? note.trim() : undefined,
     };
 
-    console.log("DB로 보낼 payload:", payload);
+    setSaving(true);
+    try {
+      await instance.post("/productionResults", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-    onClose();
+      toast.success("등록되었습니다.");
+      onClose();
+    } catch (err) {
+      toast.error("등록에 실패했습니다.");
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (workOrdersLoading) {
+    return (
+      <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
+        <div className="bg-white w-1/2 rounded-md p-6 shadow">
+          <div className="font-bold mb-4">생산실적 등록</div>
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
+
+  const disableWorkOrderSelect = !!workOrdersError || workOrders.length === 0;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
       <div className="bg-white w-1/2 rounded-md p-4 shadow">
         <div className="flex items-center justify-between mb-3">
           <div className="font-bold">생산실적 등록</div>
-          <button type="button" onClick={onClose}>
+          <button type="button" onClick={onClose} disabled={saving}>
             ✕
           </button>
         </div>
@@ -180,9 +220,11 @@ const Modal = ({ onClose }: ModalProps) => {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
+              disabled={disableWorkOrderSelect || saving}
               className={cn(
                 "border p-1 text-left flex items-center justify-between bg-gray-100",
                 errors.workOrderId && "border-red-500",
+                (disableWorkOrderSelect || saving) && "opacity-60",
               )}
             >
               <span
@@ -191,7 +233,9 @@ const Modal = ({ onClose }: ModalProps) => {
                   workOrderId ? "text-gray-900" : "text-gray-500",
                 )}
               >
-                {displayLabel}
+                {disableWorkOrderSelect
+                  ? (workOrdersError ?? "작업지시가 없습니다.")
+                  : displayLabel}
               </span>
               <span className="ml-2 text-gray-500">{open ? "▲" : "▼"}</span>
             </button>
@@ -202,54 +246,50 @@ const Modal = ({ onClose }: ModalProps) => {
               </span>
             )}
 
-            {open && (
+            {open && !disableWorkOrderSelect && (
               <div className="relative">
                 <ul
                   className="absolute z-10 mt-1 w-full border bg-white shadow overflow-auto"
                   style={{ maxHeight: 40 * 6 }}
                 >
-                  {workOrders.length === 0 ? (
-                    <li className="px-3 py-2 text-sm text-gray-500">
-                      작업지시가 없습니다.
-                    </li>
-                  ) : (
-                    workOrders.map((wo) => {
-                      const active = wo.id === workOrderId;
-                      return (
-                        <li key={wo.id}>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setWorkOrderId(wo.id);
-                              setErrors((prev) => {
-                                const { workOrderId: _, ...rest } = prev;
-                                return rest;
-                              });
-                              setOpen(false);
-                            }}
-                            className={cn(
-                              "w-full px-3 py-2 text-left hover:bg-gray-100",
-                              active && "bg-gray-100 font-semibold",
-                            )}
-                          >
-                            {wo.id}
-                          </button>
-                        </li>
-                      );
-                    })
-                  )}
+                  {workOrders.map((wo) => {
+                    const active = wo.id === workOrderId;
+                    return (
+                      <li key={wo.id}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setWorkOrderId(wo.id);
+                            setErrors((prev) => {
+                              const { workOrderId: _, ...rest } = prev;
+                              return rest;
+                            });
+                            setOpen(false);
+                          }}
+                          className={cn(
+                            "w-full px-3 py-2 text-left hover:bg-gray-100",
+                            active && "bg-gray-100 font-semibold",
+                          )}
+                        >
+                          {wo.id}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
           </div>
 
           <div className="flex flex-col">
-            <span>생산수량 *</span>
+            <label htmlFor="produced-qty">생산수량 *</label>
             <input
+              id="produced-qty"
               value={producedQty}
               onChange={(e) => setProducedQty(e.target.value)}
               type="text"
               placeholder="예) 180"
+              disabled={saving}
               className={cn(
                 "border p-1 bg-gray-100",
                 errors.producedQty && "border-red-500",
@@ -263,12 +303,14 @@ const Modal = ({ onClose }: ModalProps) => {
           </div>
 
           <div className="flex flex-col">
-            <span>불량수량 *</span>
+            <label htmlFor="defect-qty">불량수량 *</label>
             <input
+              id="defect-qty"
               value={defectQty}
               onChange={(e) => setDefectQty(e.target.value)}
               type="text"
               placeholder="예) 3"
+              disabled={saving}
               className={cn(
                 "border p-1 bg-gray-100",
                 errors.defectQty && "border-red-500",
@@ -282,12 +324,14 @@ const Modal = ({ onClose }: ModalProps) => {
           </div>
 
           <div className="flex flex-col">
-            <span>시작시간 *</span>
+            <label htmlFor="start-time">시작시간 *</label>
             <input
+              id="start-time"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
               type="text"
               placeholder="2024-01-16 08:00"
+              disabled={saving}
               className={cn(
                 "border p-1 bg-gray-100",
                 errors.startTime && "border-red-500",
@@ -301,12 +345,14 @@ const Modal = ({ onClose }: ModalProps) => {
           </div>
 
           <div className="flex flex-col">
-            <span>종료시간 *</span>
+            <label htmlFor="end-time">종료시간 *</label>
             <input
+              id="end-time"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
               type="text"
               placeholder="2024-01-16 13:00"
+              disabled={saving}
               className={cn(
                 "border p-1 bg-gray-100",
                 errors.endTime && "border-red-500",
@@ -320,12 +366,14 @@ const Modal = ({ onClose }: ModalProps) => {
           </div>
 
           <div className="flex flex-col">
-            <span>비고</span>
+            <label htmlFor="note">비고</label>
             <input
+              id="note"
               value={note}
               onChange={(e) => setNote(e.target.value)}
               type="text"
               placeholder="선택입력"
+              disabled={saving}
               className="border p-1 bg-gray-100"
             />
           </div>
@@ -335,6 +383,7 @@ const Modal = ({ onClose }: ModalProps) => {
           <button
             type="button"
             onClick={onClose}
+            disabled={saving}
             className="border border-blue-400 px-3 py-1 rounded-md mr-3"
           >
             취소
@@ -342,9 +391,13 @@ const Modal = ({ onClose }: ModalProps) => {
           <button
             type="button"
             onClick={onSubmit}
-            className="border px-3 py-1 rounded-md bg-blue-400 hover:bg-blue-500 text-white"
+            disabled={saving}
+            className={cn(
+              "border px-3 py-1 rounded-md bg-blue-400 hover:bg-blue-500 text-white",
+              saving && "opacity-60",
+            )}
           >
-            등록
+            {saving ? "등록중..." : "등록"}
           </button>
         </div>
       </div>

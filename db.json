@@ -281,6 +281,16 @@
       "endTime": "2024-01-05T19:00:00",
       "operatorId": "2401",
       "note": "야간 연장 작업 포함"
+    },
+    {
+      "workOrderId": "abcde",
+      "productName": "abc",
+      "producedQty": 555,
+      "defectQty": 4,
+      "startTime": "2025-01-01T01:01:00",
+      "endTime": "2025-02-02T02:02:00",
+      "note": "비고비고",
+      "id": "fhuSCfH"
     }
   ],
   "equipment": [
