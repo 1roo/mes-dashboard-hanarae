@@ -121,7 +121,7 @@ const AddUserForm = ({ form, onChange, onSave }: Props) => {
         <button
           type="button"
           onClick={onSave}
-          className="rounded-sm bg-violet-600 text-white font-bold text-xl w-20 px-4 py-1 hover:bg-violet-400"
+          className="rounded-sm bg-blue-600 text-white font-bold text-xl w-20 px-4 py-1 hover:bg-blue-400"
         >
           저장
         </button>

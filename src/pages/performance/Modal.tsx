@@ -335,14 +335,14 @@ const Modal = ({ onClose }: ModalProps) => {
           <button
             type="button"
             onClick={onClose}
-            className="border border-violet-400 px-3 py-1 rounded-md mr-3"
+            className="border border-blue-400 px-3 py-1 rounded-md mr-3"
           >
             취소
           </button>
           <button
             type="button"
             onClick={onSubmit}
-            className="border px-3 py-1 rounded-md bg-violet-400 hover:bg-violet-500 text-white"
+            className="border px-3 py-1 rounded-md bg-blue-400 hover:bg-blue-500 text-white"
           >
             등록
           </button>

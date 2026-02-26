@@ -9,14 +9,22 @@ export const useUserManagement = () => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [form, setForm] = useState<NewUserForm>(initialForm);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const getUsers = async () => {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const res = await instance.get("/users");
         setUsers(res.data as User[]);
       } catch (err) {
-        toast.error("사용자 목록을 불러오지 못했습니다.");
+        setError("사용자 목록을 불러오지 못했습니다.");
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -72,6 +80,9 @@ export const useUserManagement = () => {
   const onSave = async () => {
     if (!validate()) return;
 
+    setIsLoading(true);
+    setError(null);
+
     const payload = {
       employeeId: form.employeeId,
       name: form.name,
@@ -96,8 +107,11 @@ export const useUserManagement = () => {
       setForm(initialForm);
       setIsAddOpen(false);
     } catch (err) {
-      toast.error("저장에 실패했습니다.");
+      setError("저장에 실패했습니다.");
       console.error(err);
+      toast.error("저장에 실패했습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -109,5 +123,7 @@ export const useUserManagement = () => {
     setForm,
     onChange,
     onSave,
+    isLoading,
+    error,
   };
 };

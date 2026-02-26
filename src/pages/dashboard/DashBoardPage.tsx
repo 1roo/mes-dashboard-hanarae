@@ -29,7 +29,7 @@ const DashBoardPage = () => {
       <div>
         <section>
           <div className="flex justify-between items-center mt-3">
-            <div className="py-5 px-7 bg-violet-500 text-white cursor-pointer">
+            <div className="py-5 px-7 bg-blue-500 text-white cursor-pointer">
               생산계획
             </div>
             <div className="py-5 px-7 bg-blue-500 text-white cursor-pointer">
@@ -48,7 +48,7 @@ const DashBoardPage = () => {
               {data.map((item) => (
                 <div key={item.id} className="flex flex-col items-center">
                   <div
-                    className="w-7 bg-violet-500 border border-violet-600"
+                    className="w-7 bg-blue-500 border border-blue-600"
                     style={{ height: `${item.actual}px` }}
                   />
                 </div>

@@ -5,7 +5,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "../../shared/ui/table";
+} from "../../shared/ui/Table";
 
 import type { Performance } from "./types";
 import { formatDateTime } from "./constants";

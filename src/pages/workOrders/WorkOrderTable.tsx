@@ -6,7 +6,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "../../shared/ui/table";
+} from "../../shared/ui/Table";
 
 import type { WorkOrder } from "./types";
 import { statusLabel } from "./constants";

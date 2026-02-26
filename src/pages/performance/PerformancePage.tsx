@@ -16,7 +16,7 @@ const PerformancePage = () => {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="rounded-sm bg-violet-600 hover:bg-violet-400 text-white font-bold text-xl px-4 py-2"
+            className="rounded-sm bg-blue-600 hover:bg-blue-400 text-white font-bold text-xl px-4 py-2"
           >
             + 실적 등록
           </button>

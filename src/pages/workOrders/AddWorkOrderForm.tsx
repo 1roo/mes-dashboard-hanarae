@@ -1,5 +1,5 @@
 import React from "react";
-import { TableRow, TableCell } from "../../shared/ui/table";
+import { TableRow, TableCell } from "../../shared/ui/Table";
 import type { NewWorkOrderForm } from "./types";
 
 type Props = {

@@ -3,8 +3,16 @@ import UserTable from "./UserTable";
 import AddUserForm from "./AddUserForm";
 
 const UserManagementPage = () => {
-  const { users, isAddOpen, setIsAddOpen, form, onChange, onSave } =
-    useUserManagement();
+  const {
+    users,
+    isAddOpen,
+    setIsAddOpen,
+    form,
+    onChange,
+    onSave,
+    isLoading,
+    error,
+  } = useUserManagement();
 
   return (
     <div className="mx-auto">
@@ -13,13 +21,13 @@ const UserManagementPage = () => {
         <button
           type="button"
           onClick={() => setIsAddOpen((p) => !p)}
-          className="rounded-sm bg-violet-600 hover:bg-violet-400 text-white font-bold text-xl px-4 py-2"
+          className="rounded-sm bg-blue-600 hover:bg-blue-400 text-white font-bold text-xl px-4 py-2"
         >
           + 계정 추가
         </button>
       </div>
 
-      <UserTable users={users} />
+      <UserTable users={users} isLoading={isLoading} error={error} />
 
       {isAddOpen && (
         <AddUserForm form={form} onChange={onChange} onSave={onSave} />
