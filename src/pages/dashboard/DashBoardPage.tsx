@@ -56,7 +56,7 @@ const DashBoardPage = () => {
       `}</style>
 
       <section className="grid grid-cols-4 gap-4">
-        <article className="border border-violet-600 rounded-sm p-3">
+        <article className="border-gray-200 rounded-md p-4 bg-white shadow-sm">
           <span className="text-sm text-gray-500">생산계획</span>
           <p className="text-xl font-bold text-violet-600">
             {sData?.plannedQty?.toLocaleString() || 0}
@@ -66,7 +66,7 @@ const DashBoardPage = () => {
           </div>
         </article>
 
-        <article className="border border-blue-600 rounded-sm p-3">
+        <article className="border-gray-200 rounded-md p-4 bg-white shadow-sm">
           <span className="text-sm text-gray-500">실 생산</span>
           <p className="text-xl font-bold text-blue-600">
             {sData?.actualQty?.toLocaleString() || 0}
@@ -81,7 +81,7 @@ const DashBoardPage = () => {
           </div>
         </article>
 
-        <article className="border border-green-600 rounded-sm p-3 flex flex-col items-center">
+        <article className="border-gray-200 rounded-md p-4 bg-white shadow-sm flex flex-col items-center">
           <div className="w-full text-left">
             <span className="text-sm text-gray-500">달성률</span>
             <p className="text-xl font-bold text-green-600">
@@ -94,7 +94,7 @@ const DashBoardPage = () => {
           />
         </article>
 
-        <article className="border border-red-600 rounded-sm p-3 flex flex-col items-center">
+        <article className="border-gray-200 rounded-md p-4 bg-white shadow-sm flex flex-col items-center">
           <div className="w-full text-left">
             <span className="text-sm text-gray-500">불량률</span>
             <p className="text-xl font-bold text-red-600">
