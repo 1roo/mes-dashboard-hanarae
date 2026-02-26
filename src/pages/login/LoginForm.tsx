@@ -35,7 +35,7 @@ const LoginForm = ({
             <label htmlFor="login-id">아이디</label>
             <input
               id="login-id"
-              className="w-84 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
+              className="w-80 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
               placeholder="사번 또는 아이디 입력"
               value={id}
               onChange={(e) => setId(e.target.value)}
@@ -47,7 +47,7 @@ const LoginForm = ({
             <input
               id="password"
               type="password"
-              className="w-84 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
+              className="w-80 h-8 p-2 border border-gray-400 rounded-md focus:bg-gray-100"
               placeholder="●●●●"
               value={pw}
               onChange={(e) => setPw(e.target.value)}
@@ -68,7 +68,7 @@ const LoginForm = ({
 
           <div className="flex-row justify-center items-center">
             <button
-              className="m-5 ml-6 bg-blue-500 text-white w-84 h-8 rounded-md"
+              className="m-5 ml-6 bg-blue-500 text-white w-80 h-8 rounded-md"
               type="submit"
             >
               로그인

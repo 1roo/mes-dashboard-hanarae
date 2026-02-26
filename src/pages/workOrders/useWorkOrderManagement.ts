@@ -5,8 +5,6 @@ import { instance } from "../../shared/axios/axios";
 import { PAGE_SIZE, initialNewWorkOrderForm } from "./constants";
 import type { NewWorkOrderForm, Status, WorkOrder } from "./types";
 
-const STORAGE_KEY = "workOrders";
-
 const calcDueDate = (startDate: string, addDays = 3) => {
   const d = new Date(startDate);
   d.setDate(d.getDate() + addDays);
@@ -39,20 +37,6 @@ const validateNewForm = (form: NewWorkOrderForm, rows: WorkOrder[]) => {
   return null;
 };
 
-const safeLoadRows = (): WorkOrder[] | null => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return null;
-
-    return parsed as WorkOrder[];
-  } catch {
-    return null;
-  }
-};
-
 export const useWorkOrderManagement = () => {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<"" | Status>("");
@@ -66,30 +50,17 @@ export const useWorkOrderManagement = () => {
   );
 
   const [page, setPage] = useState(1);
-  const [hydrated, setHydrated] = useState(false);
 
   const fetchWorkOrders = async () => {
     setLoading(true);
-
-    const saved = safeLoadRows();
-    if (saved && saved.length > 0) {
-      setRows(saved);
-      setPage(1);
-      setHydrated(true);
-      setLoading(false);
-      return;
-    }
-
     try {
       const res = await instance.get<WorkOrder[]>("/workOrders");
       setRows(res.data);
       setPage(1);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(res.data));
     } catch (err) {
       toast.error("작업지시 조회에 실패했습니다.");
       console.error(err);
     } finally {
-      setHydrated(true);
       setLoading(false);
     }
   };
@@ -97,15 +68,6 @@ export const useWorkOrderManagement = () => {
   useEffect(() => {
     fetchWorkOrders();
   }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
-    } catch {
-      toast.error("저장에 실패했습니다.");
-    }
-  }, [rows, hydrated]);
 
   useEffect(() => {
     setPage(1);
@@ -170,6 +132,7 @@ export const useWorkOrderManagement = () => {
       dueDate: calcDueDate(newForm.startDate, 3),
     };
 
+    setLoading(true);
     try {
       const res = await instance.post<WorkOrder>("/workOrders", payload, {
         headers: { "Content-Type": "application/json" },
@@ -180,9 +143,13 @@ export const useWorkOrderManagement = () => {
 
       setIsAdding(false);
       setNewForm(initialNewWorkOrderForm);
+
+      toast.success("저장되었습니다.");
     } catch (err) {
       toast.error("저장에 실패했습니다.");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -196,6 +163,7 @@ export const useWorkOrderManagement = () => {
     // data
     rows,
     loading,
+    fetchWorkOrders,
 
     // paging
     page,

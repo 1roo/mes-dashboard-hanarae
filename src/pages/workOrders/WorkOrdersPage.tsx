@@ -3,10 +3,13 @@ import WorkOrderTable from "./WorkOrderTable";
 import { statusOptions } from "./constants";
 import type { Status } from "./types";
 import { useWorkOrderManagement } from "./useWorkOrderManagement";
+import { useAuth } from "../../auth/useAuth";
 
 const WorkOrdersPage = () => {
   const wm = useWorkOrderManagement();
-  const isAdmin = localStorage.getItem("role") === "ADMIN";
+
+  const { user } = useAuth();
+  const isAdmin = user?.role === "ADMIN";
 
   return (
     <div className="space-y-3">
@@ -61,6 +64,7 @@ const WorkOrdersPage = () => {
         {Array.from({ length: wm.totalPages }).map((_, idx) => {
           const n = idx + 1;
           const active = n === wm.page;
+
           return (
             <button
               key={n}
