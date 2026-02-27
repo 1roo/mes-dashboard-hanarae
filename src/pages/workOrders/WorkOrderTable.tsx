@@ -29,6 +29,8 @@ const WorkOrderTable = ({
   const { downloadExcel, uploadExcel } = useExcel();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const totalPlannedQty = rows.reduce((sum, r) => sum + (r.plannedQty ?? 0), 0);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="border border-gray-200 rounded-md bg-white shadow-sm">
@@ -90,6 +92,22 @@ const WorkOrderTable = ({
                 >
                   데이터가 없습니다.
                 </TableCell>
+              </TableRow>
+            )}
+
+            {!loading && rows.length > 0 && (
+              <TableRow className="bg-gray-50 border-t">
+                <TableCell
+                  className="font-bold text-gray-700 text-left pl-32"
+                  colSpan={2}
+                >
+                  합계 ({rows.length}건)
+                </TableCell>
+                <TableCell className="font-bold text-gray-900 text-center">
+                  {totalPlannedQty.toLocaleString()}
+                </TableCell>
+
+                <TableCell colSpan={4} />
               </TableRow>
             )}
           </TableBody>

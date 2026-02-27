@@ -103,10 +103,10 @@ const PerformanceTable = ({
             {!loading && rows.length > 0 && (
               <TableRow className="bg-gray-50 border-t">
                 <TableCell
-                  className="font-bold text-gray-700 text-center"
+                  className="font-bold text-gray-700 text-left pl-32"
                   colSpan={2}
                 >
-                  합계 (총 {rows.length}건)
+                  합계 ({rows.length}건)
                 </TableCell>
                 <TableCell className="font-bold text-gray-900 text-center">
                   {totalProducedQty.toLocaleString()}
