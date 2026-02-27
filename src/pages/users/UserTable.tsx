@@ -119,17 +119,17 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
 
   return (
     <>
-      <div className="border rounded-md">
+      <div className="border border-gray-200 rounded-md  bg-white shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-900 hover:bg-slate-900 text-white">
+            <TableRow className="bg-gray-500 text-white">
               <TableHead>사번</TableHead>
               <TableHead>이름</TableHead>
               <TableHead>부서</TableHead>
               <TableHead>직급</TableHead>
               <TableHead>권한</TableHead>
               <TableHead>상태</TableHead>
-              <TableHead className="w-44"></TableHead>
+              <TableHead className="w-32"></TableHead>
             </TableRow>
           </TableHeader>
 

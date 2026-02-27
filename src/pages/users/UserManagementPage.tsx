@@ -20,8 +20,8 @@ const UserManagementPage = () => {
   } = useUserManagement();
 
   return (
-    <div className="relative min-h-screen pb-24">
-      <div className="bg-gray-200 p-3 flex justify-between items-center rounded-md mb-5">
+    <div className="relative pb-24">
+      <div className="bg-gray-200  h-16 p-3 flex justify-between items-center rounded-md mb-5">
         <span className="text-gray-900 font-bold text-2xl">계정 관리</span>
 
         <button

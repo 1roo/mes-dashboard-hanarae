@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Table,
   TableHeader,
@@ -10,20 +9,26 @@ import {
 
 import type { Performance } from "./types";
 import { formatDateTime } from "./constants";
+import Spinner from "../../shared/ui/Spinner";
 
 type Props = {
   rows: Performance[];
   loading: boolean;
-  // 에러 해결: 상위에서 넘겨주는 nameByEmployeeId 타입을 추가합니다.
   nameByEmployeeId: Map<string, string>;
 };
 
 const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
+  const totalProducedQty = rows.reduce(
+    (sum, r) => sum + (r.producedQty ?? 0),
+    0,
+  );
+  const totalDefectQty = rows.reduce((sum, r) => sum + (r.defectQty ?? 0), 0);
+
   return (
-    <div className="border rounded-sm overflow-hidden bg-white">
+    <div className="border border-gray-200 rounded-md  bg-white shadow-sm">
       <Table>
         <TableHeader>
-          <TableRow className="bg-slate-900 hover:bg-slate-900">
+          <TableRow className="bg-gray-500 text-white">
             <TableHead className="text-white font-bold">작업지시번호</TableHead>
             <TableHead className="text-white font-bold">제품명</TableHead>
             <TableHead className="text-white font-bold">생산수량</TableHead>
@@ -37,8 +42,8 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
         <TableBody>
           {loading && (
             <TableRow>
-              <TableCell colSpan={7} className="py-6 text-center text-gray-500">
-                조회 중...
+              <TableCell colSpan={7} className="py-10">
+                <Spinner />
               </TableCell>
             </TableRow>
           )}
@@ -53,7 +58,6 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
 
           {!loading &&
             rows.map((r) => {
-              // Map 객체에서 operatorId를 키로 이름을 찾습니다.
               const operatorName =
                 nameByEmployeeId.get(r.operatorId) || r.operatorId || "-";
 
@@ -63,14 +67,13 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
                     {r.workOrderId}
                   </TableCell>
                   <TableCell>{r.productName}</TableCell>
-                  <TableCell>{r.producedQty}</TableCell>
+                  <TableCell>{(r.producedQty ?? 0).toLocaleString()}</TableCell>
                   <TableCell className="whitespace-nowrap">
-                    {r.defectQty}
+                    {(r.defectQty ?? 0).toLocaleString()}
                   </TableCell>
                   <TableCell className="whitespace-nowrap">
                     {formatDateTime(r.startTime)}
                   </TableCell>
-                  {/* 매핑된 담당자 이름 출력 */}
                   <TableCell className="max-w-24 truncate font-medium">
                     {operatorName}
                   </TableCell>
@@ -78,6 +81,24 @@ const PerformanceTable = ({ rows, loading, nameByEmployeeId }: Props) => {
                 </TableRow>
               );
             })}
+
+          {!loading && rows.length > 0 && (
+            <TableRow className="bg-gray-50 border-t">
+              <TableCell className="font-bold text-gray-700" colSpan={2}>
+                합계
+                <span className="ml-2 text-sm font-normal text-gray-500">
+                  (총 {rows.length.toLocaleString()}건)
+                </span>
+              </TableCell>
+              <TableCell className="font-bold text-gray-900">
+                {totalProducedQty.toLocaleString()}
+              </TableCell>
+              <TableCell className="font-bold text-gray-900">
+                {totalDefectQty.toLocaleString()}
+              </TableCell>
+              <TableCell colSpan={3} />
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

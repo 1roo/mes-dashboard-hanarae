@@ -21,7 +21,14 @@ type ModalProps = {
   onClose: () => void;
 };
 
-// 유효성 검사 유틸리티
+const formatNumberWithComma = (v: string) => {
+  const onlyDigits = v.replace(/[^0-9]/g, "");
+  if (!onlyDigits) return "";
+  return Number(onlyDigits).toLocaleString();
+};
+
+const unformatNumber = (v: string) => v.replace(/,/g, "");
+
 const isDigitsOnly = (v: string) => /^[0-9]+$/.test(v.trim());
 const isValidDateTimeFormat = (v: string) =>
   /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(v.trim());
@@ -116,10 +123,10 @@ const Modal = ({ onClose }: ModalProps) => {
     const next: Record<string, string> = {};
     if (!workOrderId) next.workOrderId = "작업지시를 선택해주세요.";
     if (!producedQty.trim()) next.producedQty = "생산수량은 필수입니다.";
-    else if (!isDigitsOnly(producedQty))
+    else if (!isDigitsOnly(unformatNumber(producedQty)))
       next.producedQty = "생산수량은 숫자만 입력하세요.";
     if (!defectQty.trim()) next.defectQty = "불량수량은 필수입니다.";
-    else if (!isDigitsOnly(defectQty))
+    else if (!isDigitsOnly(unformatNumber(defectQty)))
       next.defectQty = "불량수량은 숫자만 입력하세요.";
     if (!startTime.trim()) next.startTime = "시작시간 필수 (YYYY-MM-DD HH:mm)";
     else if (!isRealDateTime(startTime))
@@ -142,11 +149,10 @@ const Modal = ({ onClose }: ModalProps) => {
     const payload = {
       workOrderId,
       productName: selectedWorkOrderObj?.productName ?? "",
-      producedQty: Number(producedQty),
-      defectQty: Number(defectQty),
+      producedQty: Number(unformatNumber(producedQty)),
+      defectQty: Number(unformatNumber(defectQty)),
       startTime: toDbDateTime(startTime),
       endTime: toDbDateTime(endTime),
-      // Auth 정보에서 employeeId를 가져와 operatorId로 전송
       operatorId: user?.employeeId ?? user?.id ?? "",
       note: note.trim() || undefined,
     };
@@ -233,7 +239,11 @@ const Modal = ({ onClose }: ModalProps) => {
             <label className="text-sm">생산수량 *</label>
             <input
               value={producedQty}
-              onChange={(e) => setProducedQty(e.target.value)}
+              onChange={(e) => {
+                const raw = e.target.value;
+                const onlyDigits = raw.replace(/[^0-9]/g, "");
+                setProducedQty(formatNumberWithComma(onlyDigits));
+              }}
               disabled={saving}
               className={cn(
                 "border p-2 bg-gray-100",
@@ -252,7 +262,11 @@ const Modal = ({ onClose }: ModalProps) => {
             <label className="text-sm">불량수량 *</label>
             <input
               value={defectQty}
-              onChange={(e) => setDefectQty(e.target.value)}
+              onChange={(e) => {
+                const raw = e.target.value;
+                const onlyDigits = raw.replace(/[^0-9]/g, "");
+                setDefectQty(formatNumberWithComma(onlyDigits));
+              }}
               disabled={saving}
               className={cn(
                 "border p-2 bg-gray-100",

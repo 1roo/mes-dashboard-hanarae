@@ -8,9 +8,9 @@ const PerformancePage = () => {
   const up = usePerformance();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="mx-auto w-full">
-        <div className="bg-gray-200 p-3 flex justify-between items-center rounded-md mb-5">
+    <div className="flex flex-col">
+      <div className=" h-16 mx-auto w-full">
+        <div className="bg-gray-200 p-2 flex justify-between items-center rounded-md mb-5">
           <span className="text-gray-900 font-bold text-2xl">
             생산실적 목록
           </span>
@@ -25,7 +25,7 @@ const PerformancePage = () => {
         </div>
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1 mt-5">
         <PerformanceTable
           rows={up.pagedRows}
           loading={up.loading}

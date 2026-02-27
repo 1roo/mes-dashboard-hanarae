@@ -11,8 +11,8 @@ const WorkOrdersPage = () => {
   const isAdmin = user?.role === "ADMIN";
 
   return (
-    <div className="relative min-h-screen pb-24">
-      <div className="bg-gray-200 p-3 flex justify-between items-center rounded-md mb-5">
+    <div className="relative pb-24">
+      <div className="bg-gray-200 h-16 p-3 flex justify-between items-center rounded-md mb-5">
         <span className="text-gray-900 font-bold text-2xl">작업 지시 목록</span>
       </div>
 
@@ -41,7 +41,7 @@ const WorkOrdersPage = () => {
           <button
             type="button"
             onClick={wm.onClickAdd}
-            className="col-span-2 p-2 bg-blue-500 text-white font-semibold rounded-sm hover:bg-blue-600"
+            className="col-span-2 p-2 bg-blue-600 text-white font-semibold rounded-sm hover:bg-blue-700"
           >
             + 행추가
           </button>
