@@ -65,7 +65,7 @@ const DashBoardPage = () => {
   const sData = summaryData[0];
 
   return (
-    <div className="p-4 bg-gray-50 min-h-screen">
+    <div className="p-4 bg-gray-50">
       <style>{`
         @keyframes fillProgress {
           from { width: 0%; }
@@ -224,7 +224,7 @@ const DashBoardPage = () => {
                         </TableCell>
                         <TableCell className="pr-10">
                           <div className="flex flex-col gap-1.5 min-w-30">
-                            <div className="flex justify-end items-center">
+                            <div className="flex items-center">
                               <div className="w-2/3 bg-gray-100 rounded-full h-2 overflow-hidden border border-gray-50">
                                 <div
                                   className="bg-green-500 h-full rounded-full transition-all duration-1000 shadow-[0_0_8px_rgba(59,130,246,0.3)]"
