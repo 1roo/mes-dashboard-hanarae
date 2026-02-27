@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { instance } from "../../shared/axios/axios";
-
 import { PAGE_SIZE, initialNewWorkOrderForm } from "./constants";
 import type { NewWorkOrderForm, Status, WorkOrder } from "./types";
-import { useAuth } from "../../auth/useAuth";
 
 const calcDueDate = (startDate: string, addDays = 3) => {
   const d = new Date(startDate);
@@ -41,27 +39,21 @@ const validateNewForm = (form: NewWorkOrderForm, rows: WorkOrder[]) => {
 export const useWorkOrderManagement = () => {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<"" | Status>("");
-
   const [rows, setRows] = useState<WorkOrder[]>([]);
   const [loading, setLoading] = useState(false);
-
   const [isAdding, setIsAdding] = useState(false);
   const [newForm, setNewForm] = useState<NewWorkOrderForm>(
     initialNewWorkOrderForm,
   );
-
   const [page, setPage] = useState(1);
-
-  const { user } = useAuth();
 
   const fetchWorkOrders = async () => {
     setLoading(true);
     try {
       const res = await instance.get<WorkOrder[]>("/workOrders");
       setRows(res.data);
-      setPage(1);
     } catch (err) {
-      toast.error("작업지시 조회에 실패했습니다.");
+      toast.error("조회 실패");
       console.error(err);
     } finally {
       setLoading(false);
@@ -72,23 +64,18 @@ export const useWorkOrderManagement = () => {
     fetchWorkOrders();
   }, []);
 
-  useEffect(() => {
-    setPage(1);
-  }, [keyword, status]);
-
   const filteredRows = useMemo(() => {
     const q = keyword.trim();
-    return rows.filter((r) => {
-      const okKeyword = !q || r.productName.includes(q);
-      const okStatus = !status || r.status === status;
-      return okKeyword && okStatus;
-    });
+    return rows.filter(
+      (r) =>
+        (!q || r.productName.includes(q)) && (!status || r.status === status),
+    );
   }, [rows, keyword, status]);
 
-  const totalPages = useMemo(() => {
-    const n = Math.ceil(filteredRows.length / PAGE_SIZE);
-    return n === 0 ? 1 : n;
-  }, [filteredRows.length]);
+  const totalPages = useMemo(
+    () => Math.max(1, Math.ceil(filteredRows.length / PAGE_SIZE)),
+    [filteredRows],
+  );
 
   const pagedRows = useMemo(() => {
     const total = filteredRows.length;
@@ -97,34 +84,12 @@ export const useWorkOrderManagement = () => {
     return filteredRows.slice(start, end);
   }, [filteredRows, page]);
 
-  useEffect(() => {
-    setPage((p) => Math.min(p, totalPages));
-  }, [totalPages]);
-
-  const onClickAdd = () => {
-    setIsAdding(true);
-    setNewForm(initialNewWorkOrderForm);
-  };
-
-  const onChangeNewForm =
-    (key: keyof NewWorkOrderForm) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setNewForm((prev) => ({ ...prev, [key]: e.target.value }));
-    };
-
-  const onCancelNew = () => {
-    setIsAdding(false);
-    setNewForm(initialNewWorkOrderForm);
-  };
-
   const onSaveNew = async () => {
     const msg = validateNewForm(newForm, rows);
     if (msg) {
       toast.error(msg);
       return;
     }
-
-    console.log("auth user:", user);
 
     const payload: WorkOrder = {
       id: newForm.id.trim(),
@@ -139,16 +104,11 @@ export const useWorkOrderManagement = () => {
 
     setLoading(true);
     try {
-      const res = await instance.post<WorkOrder>("/workOrders", payload, {
-        headers: { "Content-Type": "application/json" },
-      });
-
+      const res = await instance.post<WorkOrder>("/workOrders", payload);
       setRows((prev) => [...prev, res.data]);
       setPage(1);
-
       setIsAdding(false);
       setNewForm(initialNewWorkOrderForm);
-
       toast.success("저장되었습니다.");
     } catch (err) {
       toast.error("저장에 실패했습니다.");
@@ -158,31 +118,65 @@ export const useWorkOrderManagement = () => {
     }
   };
 
+  const onUploadExcel = async (data: Partial<WorkOrder>[]) => {
+    setLoading(true);
+    let successCount = 0;
+    try {
+      const promises = data.map(async (item) => {
+        if (!item.id || !item.productName || !item.startDate) return null;
+        if (rows.some((r) => r.id === item.id)) return null;
+
+        const payload: WorkOrder = {
+          id: String(item.id),
+          productName: item.productName,
+          plannedQty: Number(item.plannedQty) || 0,
+          completedQty: 0,
+          status: "PENDING",
+          assignedLine: "",
+          startDate: item.startDate,
+          dueDate: calcDueDate(item.startDate),
+        };
+        const res = await instance.post<WorkOrder>("/workOrders", payload);
+        successCount++;
+        return res.data;
+      });
+
+      const results = await Promise.all(promises);
+      const addedRows = results.filter((r): r is WorkOrder => r !== null);
+      setRows((prev) => [...prev, ...addedRows]);
+      toast.success(`${successCount}건 업로드 완료`);
+    } catch (err) {
+      toast.error("업로드 중 오류 발생");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
-    // filters
     keyword,
     setKeyword,
     status,
     setStatus,
-
-    // data
     rows,
     loading,
-    fetchWorkOrders,
-
-    // paging
     page,
     setPage,
     totalPages,
-    filteredRows,
     pagedRows,
-
-    // add form
+    filteredRows,
     isAdding,
     newForm,
-    onClickAdd,
-    onChangeNewForm,
-    onCancelNew,
+    onClickAdd: () => {
+      setIsAdding(true);
+      setNewForm(initialNewWorkOrderForm);
+    },
+    onChangeNewForm:
+      (key: keyof NewWorkOrderForm) =>
+      (e: React.ChangeEvent<HTMLInputElement>) =>
+        setNewForm((p) => ({ ...p, [key]: e.target.value })),
+    onCancelNew: () => setIsAdding(false),
     onSaveNew,
+    onUploadExcel,
   };
 };

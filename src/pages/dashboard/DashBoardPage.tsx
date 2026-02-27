@@ -1,5 +1,3 @@
-// src/pages/dashboard/DashBoardPage.tsx
-
 import DashBoardChart from "./DashBoardChart";
 import SummaryCards from "./SummaryCard";
 import DashBoardTable from "./DashBoardTable";

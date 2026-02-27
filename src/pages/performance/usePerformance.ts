@@ -17,13 +17,11 @@ export const usePerformance = () => {
         instance.get<Performance[]>("/productionResults"),
         instance.get<User[]>("/users"),
       ]);
-
       setRows(resPerf.data);
-      setPage(1);
       setUsers(resUsers.data);
     } catch (e) {
-      toast.error("조회에 실패했습니다.");
-      console.error(e);
+      toast.error("조회 실패");
+      console.log(e);
     } finally {
       setLoading(false);
     }
@@ -33,17 +31,39 @@ export const usePerformance = () => {
     fetchResults();
   }, []);
 
+  const onUploadExcel = async (data: Partial<Performance>[]) => {
+    setLoading(true);
+    try {
+      const promises = data.map((item) => {
+        const payload = {
+          ...item,
+          id: crypto.randomUUID(),
+          endTime: item.startTime || new Date().toISOString(),
+        };
+        return instance.post<Performance>("/productionResults", payload);
+      });
+
+      const results = await Promise.all(promises);
+      setRows((prev) => [...prev, ...results.map((r) => r.data)]);
+      toast.success(`${results.length}건 업로드 성공`);
+    } catch (e) {
+      toast.error("업로드 중 오류 발생");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const nameByEmployeeId = useMemo(() => {
     const m = new Map<string, string>();
     for (const u of users) m.set(u.employeeId, u.name);
     return m;
   }, [users]);
 
-  const totalPages = useMemo(() => {
-    const n = Math.ceil(rows.length / PAGE_SIZE);
-    return n === 0 ? 1 : n;
-  }, [rows.length]);
-
+  const totalPages = useMemo(
+    () => Math.max(1, Math.ceil(rows.length / PAGE_SIZE)),
+    [rows.length],
+  );
   const pagedRows = useMemo(() => {
     const total = rows.length;
     const end = total - (page - 1) * PAGE_SIZE;
@@ -51,20 +71,15 @@ export const usePerformance = () => {
     return rows.slice(start, end);
   }, [rows, page]);
 
-  useEffect(() => {
-    setPage((p) => Math.min(p, totalPages));
-  }, [totalPages]);
-
   return {
     rows,
     loading,
     fetchResults,
     nameByEmployeeId,
-
-    // paging
     page,
     setPage,
     totalPages,
     pagedRows,
+    onUploadExcel,
   };
 };

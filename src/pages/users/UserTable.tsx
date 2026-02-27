@@ -119,16 +119,28 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
 
   return (
     <>
-      <div className="border border-gray-200 rounded-md  bg-white shadow-sm">
+      <div className="border text-center border-gray-200 rounded-md  bg-white shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-500 text-white">
-              <TableHead>사번</TableHead>
-              <TableHead>이름</TableHead>
-              <TableHead>부서</TableHead>
-              <TableHead>직급</TableHead>
-              <TableHead>권한</TableHead>
-              <TableHead>상태</TableHead>
+            <TableRow className="bg-gray-500 text-white ">
+              <TableHead className="text-white font-bold text-center">
+                사번
+              </TableHead>
+              <TableHead className="text-white font-bold text-center">
+                이름
+              </TableHead>
+              <TableHead className="text-white font-bold text-center">
+                부서
+              </TableHead>
+              <TableHead className="text-white font-bold text-center">
+                직급
+              </TableHead>
+              <TableHead className="text-white font-bold text-center">
+                권한
+              </TableHead>
+              <TableHead className="text-white font-bold text-center">
+                상태
+              </TableHead>
               <TableHead className="w-32"></TableHead>
             </TableRow>
           </TableHeader>

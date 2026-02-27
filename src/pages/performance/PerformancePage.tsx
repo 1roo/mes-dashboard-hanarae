@@ -33,7 +33,7 @@ const PerformancePage = () => {
         />
       </div>
 
-      <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+      <div className="fixed bottom-5 left-64 right-0 flex justify-center">
         <div className="flex gap-2">
           {Array.from({ length: up.totalPages }).map((_, idx) => {
             const n = idx + 1;

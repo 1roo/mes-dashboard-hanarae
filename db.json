@@ -259,6 +259,196 @@
       "assignedLine": "라인 C",
       "startDate": "2024-01-23",
       "dueDate": "2024-01-26"
+    },
+    {
+      "id": "13",
+      "productName": "13",
+      "plannedQty": 13,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-02-28",
+      "dueDate": "2026-03-03"
+    },
+    {
+      "id": "14",
+      "productName": "14",
+      "plannedQty": 14,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-07",
+      "dueDate": "2026-03-10"
+    },
+    {
+      "id": "15",
+      "productName": "15",
+      "plannedQty": 15,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-06",
+      "dueDate": "2026-03-09"
+    },
+    {
+      "id": "16",
+      "productName": "16",
+      "plannedQty": 16,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-11",
+      "dueDate": "2026-03-14"
+    },
+    {
+      "id": "test-001",
+      "productName": "기어박스 B타입",
+      "plannedQty": 100,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-16",
+      "dueDate": "2024-01-19"
+    },
+    {
+      "id": "test-002",
+      "productName": "샤프트 C타입",
+      "plannedQty": 200,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-17",
+      "dueDate": "2024-01-20"
+    },
+    {
+      "id": "test-003",
+      "productName": "베어링 D타입",
+      "plannedQty": 201,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-18",
+      "dueDate": "2024-01-21"
+    },
+    {
+      "id": "test-004",
+      "productName": "커넥팅 로드 E",
+      "plannedQty": 202,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-10",
+      "dueDate": "2024-01-13"
+    },
+    {
+      "id": "test-005",
+      "productName": "피스톤 F타입",
+      "plannedQty": 203,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-20",
+      "dueDate": "2024-01-23"
+    },
+    {
+      "id": "test-006",
+      "productName": "실린더 헤드 G",
+      "plannedQty": 204,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-08",
+      "dueDate": "2024-01-11"
+    },
+    {
+      "id": "test-007",
+      "productName": "크랭크샤프트 H",
+      "plannedQty": 205,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-19",
+      "dueDate": "2024-01-22"
+    },
+    {
+      "id": "test-008",
+      "productName": "캠샤프트 I타입",
+      "plannedQty": 206,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-22",
+      "dueDate": "2024-01-25"
+    },
+    {
+      "id": "test-009",
+      "productName": "밸브 스프링 J",
+      "plannedQty": 207,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-05",
+      "dueDate": "2024-01-08"
+    },
+    {
+      "id": "test-010",
+      "productName": "타이밍 체인 K",
+      "plannedQty": 208,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-20",
+      "dueDate": "2024-01-23"
+    },
+    {
+      "id": "test-011",
+      "productName": "오일 펌프 L",
+      "plannedQty": 209,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2024-01-23",
+      "dueDate": "2024-01-26"
+    },
+    {
+      "id": "test-012",
+      "productName": "13",
+      "plannedQty": 210,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-02-28",
+      "dueDate": "2026-03-03"
+    },
+    {
+      "id": "test-013",
+      "productName": "14",
+      "plannedQty": 211,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-07",
+      "dueDate": "2026-03-10"
+    },
+    {
+      "id": "test-014",
+      "productName": "15",
+      "plannedQty": 212,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-06",
+      "dueDate": "2026-03-09"
+    },
+    {
+      "id": "test-015",
+      "productName": "16",
+      "plannedQty": 213,
+      "completedQty": 0,
+      "status": "PENDING",
+      "assignedLine": "",
+      "startDate": "2026-03-11",
+      "dueDate": "2026-03-14"
     }
   ],
   "productionResults": [
@@ -327,6 +517,16 @@
       "endTime": "2024-01-05T19:00:00",
       "operatorId": "2401",
       "note": "야간 연장 작업 포함"
+    },
+    {
+      "workOrderId": "test-012",
+      "productName": "13",
+      "producedQty": 555,
+      "defectQty": 1,
+      "startTime": "2025-03-04T09:00:00",
+      "endTime": "2025-05-05T10:00:00",
+      "operatorId": "2401",
+      "id": 7
     }
   ],
   "users": [

@@ -51,6 +51,7 @@ const WorkOrdersPage = () => {
       <WorkOrderTable
         loading={wm.loading}
         rows={wm.pagedRows}
+        onUpload={wm.onUploadExcel}
         showEmpty={!wm.loading && wm.filteredRows.length === 0}
       >
         {wm.isAdding && (
@@ -63,12 +64,11 @@ const WorkOrdersPage = () => {
         )}
       </WorkOrderTable>
 
-      <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+      <div className="fixed bottom-5 left-64 right-0 flex justify-center">
         <div className="flex gap-2">
           {Array.from({ length: wm.totalPages }).map((_, idx) => {
             const n = idx + 1;
             const active = n === wm.page;
-
             return (
               <button
                 key={n}

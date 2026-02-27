@@ -7,7 +7,6 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// ✅ POST /auth/login
 server.post("/auth/login", (req, res) => {
   const { username, password } = req.body || {};
 
