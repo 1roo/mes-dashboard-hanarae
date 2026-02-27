@@ -4,6 +4,7 @@ import LoginPage from "../pages/login/LoginPage";
 import PrivateLayout from "../layout/PrivateLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import AdminRoute from "../auth/AdminRoute";
+import Spinner from "../shared/ui/Spinner";
 
 const PerformancePage = React.lazy(
   () => import("../pages/performance/PerformancePage"),
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
           {
             path: "/performance",
             element: (
-              <Suspense fallback={<div>로딩중</div>}>
+              <Suspense fallback={<Spinner />}>
                 <PerformancePage />
               </Suspense>
             ),
@@ -38,7 +39,7 @@ export const router = createBrowserRouter([
           {
             path: "/workOrders",
             element: (
-              <Suspense fallback={<div>로딩중</div>}>
+              <Suspense fallback={<Spinner />}>
                 <WorkOrdersPage />
               </Suspense>
             ),
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard",
             element: (
-              <Suspense fallback={<div>로딩중</div>}>
+              <Suspense fallback={<Spinner />}>
                 <DashBoardPage />
               </Suspense>
             ),
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
               {
                 path: "/users",
                 element: (
-                  <Suspense fallback={<div>로딩중</div>}>
+                  <Suspense fallback={<Spinner />}>
                     <UserManagementPage />
                   </Suspense>
                 ),

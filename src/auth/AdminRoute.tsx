@@ -1,11 +1,12 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import Spinner from "../shared/ui/Spinner";
 
 export default function AdminRoute() {
   const { isLoggedIn, user, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return <div>로딩중</div>;
+  if (loading) return <Spinner />;
 
   if (!isLoggedIn) {
     return <Navigate to="/" replace state={{ from: location.pathname }} />;

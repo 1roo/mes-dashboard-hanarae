@@ -247,8 +247,8 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
                         <span
                           className={
                             u.status === "ACTIVE"
-                              ? "text-green-600 font-semibold"
-                              : "text-muted-foreground font-semibold"
+                              ? "text-green-600 font-bold"
+                              : "text-gray-500"
                           }
                         >
                           {statusLabel(u.status)}
