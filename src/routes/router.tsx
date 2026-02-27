@@ -6,6 +6,7 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 import AdminRoute from "../auth/AdminRoute";
 import Spinner from "../shared/ui/Spinner";
 
+const PopPage = React.lazy(() => import("../pages/pop/PopPage"));
 const PerformancePage = React.lazy(
   () => import("../pages/performance/PerformancePage"),
 );
@@ -27,7 +28,16 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <PrivateLayout />,
+
         children: [
+          {
+            path: "/pop",
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <PopPage />
+              </Suspense>
+            ),
+          },
           {
             path: "/performance",
             element: (

@@ -20,6 +20,7 @@ const SideBar: React.FC = () => {
   const items: MenuItem[] = useMemo(
     () => [
       { label: "대시보드", to: "/dashboard", roles: ["USER", "ADMIN"] },
+      { label: "POP", to: "/pop", roles: ["USER", "ADMIN"] },
       { label: "계정 관리", to: "/users", roles: ["ADMIN"] },
       { label: "작업 지시 목록", to: "/workOrders", roles: ["USER", "ADMIN"] },
       { label: "실적등록", to: "/performance", roles: ["USER", "ADMIN"] },
