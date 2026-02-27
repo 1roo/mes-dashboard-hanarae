@@ -10,6 +10,7 @@ import {
 import type { WorkOrder } from "./types";
 import { statusLabel } from "./constants";
 import { useExcel } from "./useExcel";
+import Spinner from "../../shared/ui/Spinner";
 
 type Props = {
   loading: boolean;
@@ -62,7 +63,7 @@ const WorkOrderTable = ({
                   colSpan={6}
                   className="py-6 text-center text-gray-500"
                 >
-                  조회 중...
+                  <Spinner />
                 </TableCell>
               </TableRow>
             ) : (
