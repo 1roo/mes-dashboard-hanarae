@@ -4,12 +4,12 @@ import SideBar from "./SideBar";
 
 export default function PrivateLayout() {
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden">
+    <div className="flex-1 flex flex-col ">
       <Header />
-      <div className="flex h-auto flex-1 overflow-hidden">
+      <div className="flex h-auto flex-1 ">
         <SideBar />
 
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+        <main className="flex-1 p-6 bg-gray-50 ">
           <Outlet />
         </main>
       </div>

@@ -9,7 +9,7 @@ const DashBoardPage = () => {
   const { summary, hourlyData, equipData, loading } = useDashBoard();
 
   return (
-    <div className="p-4 bg-gray-50">
+    <div className=" bg-gray-50 ">
       <SummaryCards summary={summary} loading={loading} />
 
       <DashBoardChart hourlyData={hourlyData} />

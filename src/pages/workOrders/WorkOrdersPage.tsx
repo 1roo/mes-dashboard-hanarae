@@ -7,13 +7,16 @@ import { useAuth } from "../../auth/useAuth";
 
 const WorkOrdersPage = () => {
   const wm = useWorkOrderManagement();
-
   const { user } = useAuth();
   const isAdmin = user?.role === "ADMIN";
 
   return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-10 gap-2">
+    <div className="relative min-h-screen pb-24">
+      <div className="bg-gray-200 p-3 flex justify-between items-center rounded-md mb-5">
+        <span className="text-gray-900 font-bold text-2xl">작업 지시 목록</span>
+      </div>
+
+      <div className="grid grid-cols-10 gap-2 mb-3">
         <input
           type="text"
           placeholder="제품명 검색..."
@@ -60,27 +63,29 @@ const WorkOrdersPage = () => {
         )}
       </WorkOrderTable>
 
-      <div className="flex justify-center gap-2">
-        {Array.from({ length: wm.totalPages }).map((_, idx) => {
-          const n = idx + 1;
-          const active = n === wm.page;
+      <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+        <div className="flex gap-2">
+          {Array.from({ length: wm.totalPages }).map((_, idx) => {
+            const n = idx + 1;
+            const active = n === wm.page;
 
-          return (
-            <button
-              key={n}
-              type="button"
-              onClick={() => wm.setPage(n)}
-              className={[
-                "w-10 h-10 border rounded-sm font-semibold",
-                active
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-gray-700 hover:bg-gray-100",
-              ].join(" ")}
-            >
-              {n}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={n}
+                type="button"
+                onClick={() => wm.setPage(n)}
+                className={[
+                  "w-10 h-10 border rounded-sm font-semibold",
+                  active
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-gray-700 hover:bg-gray-100",
+                ].join(" ")}
+              >
+                {n}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

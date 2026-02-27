@@ -19,7 +19,7 @@ type Props = {
 
 const DashBoardTable = ({ equipData, loading }: Props) => {
   return (
-    <section className="mt-5">
+    <section className="mt-1">
       <div className="w-full border border-gray-200 rounded-md p-5 bg-white shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <span className="text-gray-700 font-bold text-sm">
@@ -38,10 +38,10 @@ const DashBoardTable = ({ equipData, loading }: Props) => {
           </div>
         </div>
 
-        <div className="border border-gray-100 rounded-sm overflow-hidden">
+        <div className="border rounded-sm h-80 overflow-y-scroll border-gray-200">
           <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50">
+            <TableHeader className="sticky top-0 z-10 bg-gray-50">
+              <TableRow className="bg-gray-200">
                 <TableHead className="py-3">설비명</TableHead>
                 <TableHead>라인</TableHead>
                 <TableHead>상태</TableHead>

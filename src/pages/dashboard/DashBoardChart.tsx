@@ -9,7 +9,7 @@ type Props = {
 
 const DashBoardChart = ({ hourlyData }: Props) => {
   return (
-    <section className="flex gap-4 mt-5">
+    <section className="flex gap-4 my-5">
       <div className="w-1/2 border border-gray-200 rounded-md p-4 bg-white shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <span className="text-gray-700 font-bold text-sm">

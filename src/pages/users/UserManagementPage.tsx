@@ -4,7 +4,10 @@ import AddUserForm from "./AddUserForm";
 
 const UserManagementPage = () => {
   const {
-    users,
+    pagedUsers,
+    page,
+    setPage,
+    totalPages,
     isAddOpen,
     setIsAddOpen,
     form,
@@ -15,9 +18,10 @@ const UserManagementPage = () => {
   } = useUserManagement();
 
   return (
-    <div className="mx-auto">
-      <div className="bg-gray-950 p-3 flex justify-between items-center rounded-md mb-5">
-        <span className="text-white font-bold text-2xl">계정 관리</span>
+    <div className="relative min-h-screen pb-24">
+      <div className="bg-gray-200 p-3 flex justify-between items-center rounded-md mb-5">
+        <span className="text-gray-900 font-bold text-2xl">계정 관리</span>
+
         <button
           type="button"
           onClick={() => setIsAddOpen((p) => !p)}
@@ -27,11 +31,36 @@ const UserManagementPage = () => {
         </button>
       </div>
 
-      <UserTable users={users} isLoading={isLoading} error={error} />
+      <UserTable users={pagedUsers} isLoading={isLoading} error={error} />
 
       {isAddOpen && (
         <AddUserForm form={form} onChange={onChange} onSave={onSave} />
       )}
+
+      <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+        <div className="flex gap-2">
+          {Array.from({ length: totalPages }).map((_, idx) => {
+            const n = idx + 1;
+            const active = n === page;
+
+            return (
+              <button
+                key={n}
+                type="button"
+                onClick={() => setPage(n)}
+                className={[
+                  "w-10 h-10 border rounded-sm font-semibold",
+                  active
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-gray-700 hover:bg-gray-100",
+                ].join(" ")}
+              >
+                {n}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

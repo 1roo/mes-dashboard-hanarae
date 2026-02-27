@@ -18,7 +18,7 @@ interface Props {
 
 export const TrendLineChart = ({ data }: Props) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={200}>
       <AreaChart
         data={data}
         margin={{ top: 20, right: 10, left: -20, bottom: 0 }}

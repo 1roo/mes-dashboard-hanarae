@@ -12,3 +12,5 @@ export const initialForm: NewUserForm = {
   password: "",
   role: "",
 };
+
+export const PAGE_SIZE = 15;

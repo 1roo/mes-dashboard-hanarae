@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { instance } from "../../shared/axios/axios";
-import { initialForm } from "./constants";
+import { initialForm, PAGE_SIZE } from "./constants";
 import { type NewUserForm, type User } from "./types";
 
 export const useUserManagement = () => {
@@ -11,6 +11,8 @@ export const useUserManagement = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -101,7 +103,11 @@ export const useUserManagement = () => {
       });
 
       const created = res.data as User;
-      setUsers((prev) => [...prev, created]);
+
+      setUsers((prev) => {
+        const next = [...prev, created];
+        return next;
+      });
 
       toast.success("저장되었습니다.");
       setForm(initialForm);
@@ -115,14 +121,40 @@ export const useUserManagement = () => {
     }
   };
 
+  const totalPages = useMemo(() => {
+    return Math.max(1, Math.ceil(users.length / PAGE_SIZE));
+  }, [users.length]);
+
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+    if (page < 1) setPage(1);
+  }, [page, totalPages]);
+
+  const pagedUsers = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    return users.slice(start, end);
+  }, [users, page]);
+
   return {
+    // data
     users,
+    pagedUsers,
+
+    // pagination
+    page,
+    setPage,
+    totalPages,
+
+    // ui/form
     isAddOpen,
     setIsAddOpen,
     form,
     setForm,
     onChange,
     onSave,
+
+    // status
     isLoading,
     error,
   };

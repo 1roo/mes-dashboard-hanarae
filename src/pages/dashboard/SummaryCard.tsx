@@ -34,7 +34,7 @@ const SummaryCards = ({ summary, loading }: Props) => {
     <>
       <style>{DASHBOARD_ANIMATION_STYLE}</style>
 
-      <section className="grid grid-cols-4 gap-4">
+      <section className="grid grid-cols-4 gap-4 h-40">
         <article className="border border-gray-200 rounded-md p-4 bg-white shadow-sm">
           <span className="text-sm text-gray-500 font-medium">생산계획</span>
           <p className="text-2xl font-bold text-violet-600 mt-1">

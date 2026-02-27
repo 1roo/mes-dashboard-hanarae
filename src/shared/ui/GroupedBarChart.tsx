@@ -1,5 +1,3 @@
-// src/shared/ui/GroupedBarChart.tsx
-
 import {
   BarChart,
   Bar,
@@ -10,7 +8,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// 데이터를 넘겨주는 쪽의 타입과 이름을 맞춥니다.
 interface BarData {
   hour: string;
   planned: number;
@@ -23,7 +20,7 @@ interface Props {
 
 export const GroupedBarChart = ({ data }: Props) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={200}>
       <BarChart
         data={data}
         margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
