@@ -9,9 +9,24 @@ export const DASHBOARD_ANIMATION_STYLE = `
 `;
 
 export const STATUS_CONFIG = {
-  RUNNING: { color: "bg-green-500", text: "가동중" },
-  MAINTENANCE: { color: "bg-yellow-500", text: "점검중" },
-  STOPPED: { color: "bg-red-500", text: "비가동" },
+  RUNNING: {
+    color: "bg-green-500/30",
+    dot: "bg-green-500",
+    text: "가동중",
+    textColor: "text-green-600",
+  },
+  MAINTENANCE: {
+    color: "bg-yellow-500/30",
+    dot: "bg-yellow-500",
+    text: "점검중",
+    textColor: "text-yellow-600",
+  },
+  STOPPED: {
+    color: "bg-red-500/30",
+    dot: "bg-red-500",
+    text: "비가동",
+    textColor: "text-red-600",
+  },
 } as const;
 
 export const STATUS_LEGEND = [
