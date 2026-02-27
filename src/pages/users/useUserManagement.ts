@@ -103,11 +103,7 @@ export const useUserManagement = () => {
       });
 
       const created = res.data as User;
-
-      setUsers((prev) => {
-        const next = [...prev, created];
-        return next;
-      });
+      setUsers((prev) => [...prev, created]);
 
       toast.success("저장되었습니다.");
       setForm(initialForm);
@@ -116,6 +112,88 @@ export const useUserManagement = () => {
       setError("저장에 실패했습니다.");
       console.error(err);
       toast.error("저장에 실패했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onUpdate = async (next: User) => {
+    setIsLoading(true);
+    setError(null);
+
+    const employeeIdTrimmed = String(next.employeeId ?? "").trim();
+    const usernameTrimmed = String(next.username ?? "").trim();
+    const nameTrimmed = String(next.name ?? "").trim();
+
+    if (!employeeIdTrimmed || !nameTrimmed) {
+      setIsLoading(false);
+      toast.error("사번과 이름은 필수입니다.");
+      return;
+    }
+
+    const dupEmployeeId = users.some(
+      (u) => u.employeeId === employeeIdTrimmed && u.id !== next.id,
+    );
+    if (dupEmployeeId) {
+      setIsLoading(false);
+      toast.error("이미 존재하는 사번입니다.");
+      return;
+    }
+
+    const dupUsername = users.some(
+      (u) => u.username === usernameTrimmed && u.id !== next.id,
+    );
+    if (dupUsername) {
+      setIsLoading(false);
+      toast.error("이미 존재하는 아이디입니다.");
+      return;
+    }
+
+    const payload: User = {
+      ...next,
+      employeeId: employeeIdTrimmed,
+      username: usernameTrimmed,
+      name: nameTrimmed,
+    };
+
+    try {
+      const res = await instance.put(`/users/${next.id}`, payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const updated = res.data as User;
+
+      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+
+      toast.success("수정되었습니다.");
+    } catch (err) {
+      setError("수정에 실패했습니다.");
+      console.error(err);
+      toast.error("수정에 실패했습니다.");
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onDelete = async (user: User) => {
+    const ok = window.confirm(
+      `${user.name}(${user.employeeId}) 계정을 삭제할까요?`,
+    );
+    if (!ok) return;
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await instance.delete(`/users/${user.id}`);
+
+      setUsers((prev) => prev.filter((u) => u.id !== user.id));
+      toast.success("삭제되었습니다.");
+    } catch (err) {
+      console.error(err);
+      setError("삭제에 실패했습니다.");
+      toast.error("삭제에 실패했습니다.");
+      throw err;
     } finally {
       setIsLoading(false);
     }
@@ -137,16 +215,13 @@ export const useUserManagement = () => {
   }, [users, page]);
 
   return {
-    // data
     users,
     pagedUsers,
 
-    // pagination
     page,
     setPage,
     totalPages,
 
-    // ui/form
     isAddOpen,
     setIsAddOpen,
     form,
@@ -154,7 +229,9 @@ export const useUserManagement = () => {
     onChange,
     onSave,
 
-    // status
+    onUpdate,
+    onDelete,
+
     isLoading,
     error,
   };

@@ -15,6 +15,8 @@ const UserManagementPage = () => {
     onSave,
     isLoading,
     error,
+    onUpdate,
+    onDelete,
   } = useUserManagement();
 
   return (
@@ -31,7 +33,13 @@ const UserManagementPage = () => {
         </button>
       </div>
 
-      <UserTable users={pagedUsers} isLoading={isLoading} error={error} />
+      <UserTable
+        users={pagedUsers}
+        isLoading={isLoading}
+        error={error}
+        onUpdate={onUpdate}
+        onDelete={onDelete}
+      />
 
       {isAddOpen && (
         <AddUserForm form={form} onChange={onChange} onSave={onSave} />
