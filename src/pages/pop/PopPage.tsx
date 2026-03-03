@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { RiResetRightFill } from "react-icons/ri";
 import LinePage from "./line/LingPage";
 import type { LineValue } from "./line/type";
+import EnterPerformPage from "./enterPerform/EnterPerformPage";
 
 type View = "LINE" | "PERFORM";
 
@@ -106,6 +107,8 @@ const PopPage = () => {
           selectedLine={selectedLine}
         />
       )}
+
+      {view === "PERFORM" && <EnterPerformPage />}
     </div>
   );
 };
