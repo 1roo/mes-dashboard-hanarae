@@ -6,19 +6,52 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 
-interface BarData {
+export interface BarData {
   hour: string;
   planned: number;
   actual: number;
 }
 
-interface Props {
+type Props = {
   data: BarData[];
-}
 
-export const GroupedBarChart = ({ data }: Props) => {
+  // ✅ 새 옵션 (안 주면 기존과 동일하게 동작)
+  showNowLine?: boolean; // 기본 false
+  nowLineColor?: string; // 기본 "#ef4444"
+  nowLineDash?: string; // 기본 "6 6"
+};
+
+const getNearestHourLabel = (data: BarData[]) => {
+  const now = new Date();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+  let best: { label: string; diff: number } | null = null;
+
+  for (const d of data) {
+    const [hh, mm] = d.hour.split(":").map(Number);
+    const m = hh * 60 + mm;
+    const diff = Math.abs(m - nowMinutes);
+    if (!best || diff < best.diff) best = { label: d.hour, diff };
+  }
+
+  return best?.label ?? null;
+};
+
+const getNowText = () => {
+  return `NOW`;
+};
+
+export const GroupedBarChart = ({
+  data,
+  showNowLine = false,
+  nowLineColor = "#ef4444",
+  nowLineDash = "6 6",
+}: Props) => {
+  const nowHourLabel = showNowLine ? getNearestHourLabel(data) : null;
+
   return (
     <ResponsiveContainer width="100%" height={200}>
       <BarChart
@@ -31,7 +64,6 @@ export const GroupedBarChart = ({ data }: Props) => {
           vertical={false}
           stroke="#f0f0f0"
         />
-        {/* dataKey를 'time'으로 수정 */}
         <XAxis
           dataKey="hour"
           axisLine={false}
@@ -44,10 +76,7 @@ export const GroupedBarChart = ({ data }: Props) => {
           tickLine={false}
           tick={{ fill: "#9CA3AF", fontSize: 12 }}
         />
-        {/* <Tooltip
-          cursor={{ fill: "#f9fafb" }}
-          contentStyle={{ borderRadius: "8px", border: "none" }}
-        /> */}
+
         <Legend
           verticalAlign="bottom"
           align="left"
@@ -58,7 +87,21 @@ export const GroupedBarChart = ({ data }: Props) => {
           wrapperStyle={{ paddingLeft: "20px" }}
         />
 
-        {/* dataKey를 'planned'와 'actual'로 수정 */}
+        {/* ✅ 옵션 켰을 때만 현재시간 점선과 라벨 */}
+        {showNowLine && nowHourLabel && (
+          <ReferenceLine
+            x={nowHourLabel}
+            stroke={nowLineColor}
+            strokeDasharray={nowLineDash}
+            label={{
+              value: getNowText(),
+              position: "top",
+              fill: nowLineColor,
+              fontSize: 12,
+            }}
+          />
+        )}
+
         <Bar
           dataKey="planned"
           name="계획"

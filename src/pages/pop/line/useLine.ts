@@ -1,45 +1,46 @@
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { instance } from "../../../shared/axios/axios";
-import type { WorkOrder } from "./type";
+import type {
+  WorkOrder,
+  LineMetrics,
+  LineValue,
+  HourlyRow,
+  Equipment,
+} from "./type";
 
-export const LINES = [
-  { label: "라인A", value: "라인 A" },
-  { label: "라인B", value: "라인 B" },
-  { label: "라인C", value: "라인 C" },
-  { label: "라인D", value: "라인 D" },
-] as const;
-
-type LineValue = (typeof LINES)[number]["value"];
+const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
 
 type Params = {
   refreshKey: number;
   onRefreshed: () => void;
-  defaultLine?: LineValue;
+  selectedLine: LineValue;
 };
 
-const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
-
-export const useLine = ({
-  refreshKey,
-  onRefreshed,
-  defaultLine = "라인 A",
-}: Params) => {
-  const [selectedLine, setSelectedLine] = useState<LineValue>(defaultLine);
+export const useLine = ({ refreshKey, onRefreshed, selectedLine }: Params) => {
   const [rows, setRows] = useState<WorkOrder[]>([]);
+  const [hourlyProduction, setHourlyProduction] = useState<HourlyRow[]>([]);
+  const [equipment, setEquipment] = useState<Equipment[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const run = async () => {
       setLoading(true);
       try {
-        const res = await instance.get<WorkOrder[]>("/workOrders");
-        const data = res.data;
-        setRows(Array.isArray(data) ? data : []);
+        const [woRes, hpRes, eqRes] = await Promise.all([
+          instance.get<WorkOrder[]>("/workOrders"),
+          instance.get<HourlyRow[]>("/hourlyProduction"),
+          instance.get<Equipment[]>("/equipment"),
+        ]);
+
+        setRows(Array.isArray(woRes.data) ? woRes.data : []);
+        setHourlyProduction(Array.isArray(hpRes.data) ? hpRes.data : []);
+        setEquipment(Array.isArray(eqRes.data) ? eqRes.data : []);
+
         onRefreshed();
       } catch (error) {
         toast.error("데이터를 불러오지 못했습니다.");
-        console.error("Failed to fetch workOrders", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -57,12 +58,10 @@ export const useLine = ({
     () => sum(lineRows.map((r) => Number(r.plannedQty ?? 0))),
     [lineRows],
   );
-
   const completedTotal = useMemo(
     () => sum(lineRows.map((r) => Number(r.completedQty ?? 0))),
     [lineRows],
   );
-
   const defectTotal = useMemo(
     () => sum(lineRows.map((r) => Number(r.defectQty ?? 0))),
     [lineRows],
@@ -78,21 +77,22 @@ export const useLine = ({
     return (defectTotal / completedTotal) * 100;
   }, [defectTotal, completedTotal]);
 
-  const achievementWidth = Math.min(achievementRate, 100);
-
-  return {
-    selectedLine,
-    setSelectedLine,
-    rows,
-    lineRows,
-    loading,
-    metrics: {
+  const metrics: LineMetrics = useMemo(
+    () => ({
       plannedTotal,
       completedTotal,
-      defectTotal,
       achievementRate,
       defectRate,
-      achievementWidth,
-    },
+      defectTotal,
+    }),
+    [plannedTotal, completedTotal, achievementRate, defectRate, defectTotal],
+  );
+
+  return {
+    loading,
+    metrics,
+    lineRows,
+    hourlyProduction,
+    equipment,
   };
 };

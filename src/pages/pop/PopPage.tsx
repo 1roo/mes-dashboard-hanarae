@@ -1,12 +1,21 @@
 import { useEffect, useState, useCallback } from "react";
-import LinePage from "./linePage/LinePage";
-import PerformPage from "./performPage/PerformPage";
 import { RiResetRightFill } from "react-icons/ri";
+import LinePage from "./line/LingPage";
+import type { LineValue } from "./line/type";
 
 type View = "LINE" | "PERFORM";
 
+const LINE_TABS: Array<{ label: string; value: LineValue }> = [
+  { label: "라인 A", value: "라인 A" },
+  { label: "라인 B", value: "라인 B" },
+  { label: "라인 C", value: "라인 C" },
+  { label: "라인 D", value: "라인 D" },
+];
+
 const PopPage = () => {
   const [view, setView] = useState<View>("LINE");
+  const [selectedLine, setSelectedLine] = useState<LineValue>("라인 A");
+
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -37,28 +46,22 @@ const PopPage = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4 bg-white p-3 rounded-md shadow-sm">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <div className="flex bg-gray-100 p-1 rounded-md w-fit">
             <button
               onClick={() => setView("LINE")}
-              className={`px-4 py-1 rounded-sm font-medium transition-all duration-200
-                ${
-                  view === "LINE"
-                    ? "bg-blue-600 text-white shadow"
-                    : "text-gray-500 hover:text-blue-600"
-                }`}
+              className={`px-4 py-1 rounded-sm ${
+                view === "LINE" ? "bg-blue-600 text-white" : "text-gray-500"
+              }`}
             >
               현황판
             </button>
 
             <button
               onClick={() => setView("PERFORM")}
-              className={`px-4 py-1 rounded-md font-medium transition-all duration-200
-                ${
-                  view === "PERFORM"
-                    ? "bg-blue-600 text-white shadow"
-                    : "text-gray-500 hover:text-blue-600"
-                }`}
+              className={`px-4 py-1 rounded-sm ${
+                view === "PERFORM" ? "bg-blue-600 text-white" : "text-gray-500"
+              }`}
             >
               실적입력
             </button>
@@ -71,19 +74,37 @@ const PopPage = () => {
             5분마다 갱신
           </span>
 
-          <div className="flex items-center text-sm">
+          <div className="flex items-center">
             <div className="w-2 h-2 rounded-full bg-green-600 mr-2 animate-pulse" />
-            <span className="text-gray-700 font-medium">
-              {formatTime(lastUpdated)}
-            </span>
+            <span>{formatTime(lastUpdated)}</span>
           </div>
         </div>
       </div>
 
-      {view === "LINE" ? (
-        <LinePage refreshKey={refreshKey} onRefreshed={handleRefreshed} />
-      ) : (
-        <PerformPage />
+      {view === "LINE" && (
+        <div className="flex gap-2">
+          {LINE_TABS.map((t) => (
+            <button
+              key={t.value}
+              onClick={() => setSelectedLine(t.value)}
+              className={`px-3 py-1 rounded-md border ${
+                selectedLine === t.value
+                  ? "bg-blue-400 text-black"
+                  : "bg-white text-gray-600"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {view === "LINE" && (
+        <LinePage
+          refreshKey={refreshKey}
+          onRefreshed={handleRefreshed}
+          selectedLine={selectedLine}
+        />
       )}
     </div>
   );
