@@ -5,4 +5,4 @@ export const formatDateTime = (iso: string) => {
   return `${date} ${time}`;
 };
 
-export const PAGE_SIZE = 15;
+export const PAGE_SIZE = 10;

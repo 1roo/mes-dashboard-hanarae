@@ -25,6 +25,25 @@ export const useExcel = () => {
     XLSX.writeFile(workbook, "WorkOrder_List.xlsx");
   };
 
+  const downloadTemplate = () => {
+    const headers = [["작업지시번호", "제품명", "계획수량", "지시일"]];
+
+    const ws = XLSX.utils.aoa_to_sheet(headers);
+
+    ws["!cols"] = [
+      { wch: 14 }, // 작업지시번호
+      { wch: 18 }, // 제품명
+      { wch: 10 }, // 계획수량
+      { wch: 14 }, // 지시일
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "업로드양식");
+
+    const today = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `WorkOrder_Upload_Template_${today}.xlsx`);
+  };
+
   const uploadExcel = (file: File): Promise<Partial<WorkOrder>[]> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -50,5 +69,5 @@ export const useExcel = () => {
     });
   };
 
-  return { downloadExcel, uploadExcel };
+  return { downloadExcel, downloadTemplate, uploadExcel };
 };

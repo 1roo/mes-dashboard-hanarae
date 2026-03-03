@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Spinner from "../../shared/ui/Spinner";
 import {
   Table,
   TableHeader,
@@ -7,9 +8,9 @@ import {
   TableBody,
   TableCell,
 } from "../../shared/ui/Table";
+
 import type { Performance } from "./types";
 import { formatDateTime } from "./constants";
-import Spinner from "../../shared/ui/Spinner";
 import { useExcel } from "./useExcel";
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
   loading: boolean;
   nameByEmployeeId: Map<string, string>;
   onUpload: (data: Partial<Performance>[]) => void;
+  onDownloadTemplate: () => void;
 };
 
 const PerformanceTable = ({
@@ -24,6 +26,7 @@ const PerformanceTable = ({
   loading,
   nameByEmployeeId,
   onUpload,
+  onDownloadTemplate,
 }: Props) => {
   const { downloadExcel, uploadExcel } = useExcel();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,36 +38,37 @@ const PerformanceTable = ({
   const totalDefectQty = rows.reduce((sum, r) => sum + (r.defectQty ?? 0), 0);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="overflow-hidden">
       <div className="border border-gray-200 rounded-md bg-white shadow-sm">
-        <Table>
+        <Table className="border-gray-200 rounded-md bg-white shadow-sm">
           <TableHeader>
-            <TableRow className="bg-gray-500 text-white">
-              <TableHead className="text-white font-bold text-center">
+            <TableRow className="bg-gray-500 hover:bg-gray-500">
+              <TableHead className="text-white font-bold">
                 작업지시번호
               </TableHead>
-              <TableHead className="text-white font-bold text-center">
-                제품명
-              </TableHead>
-              <TableHead className="text-white font-bold text-center">
+              <TableHead className="text-white font-bold">제품명</TableHead>
+              <TableHead className="text-white font-bold text-right">
                 생산수량
               </TableHead>
-              <TableHead className="text-white font-bold text-center">
+              <TableHead className="text-white font-bold text-right">
                 불량수량
               </TableHead>
               <TableHead className="text-white font-bold text-center">
-                시작일시
+                시작시간
               </TableHead>
               <TableHead className="text-white font-bold text-center">
                 담당자
               </TableHead>
-              <TableHead />
             </TableRow>
           </TableHeader>
+
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={7} className="py-10 text-center">
+                <TableCell
+                  colSpan={7}
+                  className="py-6 text-center text-gray-500"
+                >
                   <Spinner />
                 </TableCell>
               </TableRow>
@@ -80,38 +84,35 @@ const PerformanceTable = ({
             ) : (
               rows.map((r) => (
                 <TableRow key={r.id}>
-                  <TableCell className="font-semibold text-center">
+                  <TableCell className="font-semibold">
                     {r.workOrderId}
                   </TableCell>
-                  <TableCell className="text-center">{r.productName}</TableCell>
-                  <TableCell className="text-center">
+                  <TableCell>{r.productName}</TableCell>
+                  <TableCell className="text-right">
                     {(r.producedQty ?? 0).toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-right">
                     {(r.defectQty ?? 0).toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-center whitespace-nowrap">
+                  <TableCell className="text-center">
                     {formatDateTime(r.startTime)}
                   </TableCell>
-                  <TableCell className="text-center font-medium">
-                    {nameByEmployeeId.get(r.operatorId) || r.operatorId || "-"}
+                  <TableCell className="text-center">
+                    {nameByEmployeeId.get(r.operatorId) || r.operatorId}
                   </TableCell>
-                  <TableCell />
                 </TableRow>
               ))
             )}
+
             {!loading && rows.length > 0 && (
               <TableRow className="bg-gray-50 border-t">
-                <TableCell
-                  className="font-bold text-gray-700 text-left pl-32"
-                  colSpan={2}
-                >
+                <TableCell className="font-bold text-gray-700" colSpan={2}>
                   합계 ({rows.length}건)
                 </TableCell>
-                <TableCell className="font-bold text-gray-900 text-center">
+                <TableCell className="font-bold text-gray-900 text-right">
                   {totalProducedQty.toLocaleString()}
                 </TableCell>
-                <TableCell className="font-bold text-gray-900 text-center">
+                <TableCell className="font-bold text-gray-900 text-right">
                   {totalDefectQty.toLocaleString()}
                 </TableCell>
                 <TableCell colSpan={3} />
@@ -121,7 +122,7 @@ const PerformanceTable = ({
         </Table>
       </div>
 
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-end gap-2 p-2">
         <input
           type="file"
           className="hidden"
@@ -136,13 +137,25 @@ const PerformanceTable = ({
             }
           }}
         />
+
         <button
+          type="button"
+          onClick={onDownloadTemplate}
+          className="text-xs font-bold text-gray-700 px-2 py-1 border border-gray-200 rounded-sm bg-white hover:bg-gray-50"
+        >
+          양식 다운로드
+        </button>
+
+        <button
+          type="button"
           onClick={() => fileInputRef.current?.click()}
           className="text-xs font-bold text-blue-600 px-2 py-1 border border-blue-200 rounded-sm bg-blue-50"
         >
           엑셀 업로드
         </button>
+
         <button
+          type="button"
           onClick={() => downloadExcel(rows, nameByEmployeeId)}
           className="text-xs font-bold text-green-600 px-2 py-1 border border-green-200 rounded-sm bg-green-50"
         >

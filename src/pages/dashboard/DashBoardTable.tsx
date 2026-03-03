@@ -17,14 +17,15 @@ type Props = {
 
 const DashBoardTable = ({ equipData, loading }: Props) => {
   return (
-    <section className="mt-1 w-full">
-      <div className="w-full border border-gray-200 rounded-md p-5 bg-white shadow-sm">
-        <div className="flex justify-between items-center mb-6">
+    <section className="mt-1 w-full h-full min-h-0">
+      <div className="w-full h-full min-h-0 border border-gray-200 rounded-md p-5 bg-white shadow-sm flex flex-col">
+        <div className="flex justify-between items-center mb-6 shrink-0">
           <div className="flex items-center gap-5">
             <span className="text-gray-700 font-bold text-sm whitespace-nowrap">
               설비 가동 현황
             </span>
           </div>
+
           <div className="flex items-center gap-4">
             {STATUS_LEGEND.map((l) => (
               <div key={l.label} className="flex items-center gap-1.5">
@@ -37,9 +38,9 @@ const DashBoardTable = ({ equipData, loading }: Props) => {
           </div>
         </div>
 
-        <div className="relative border rounded-sm border-gray-200">
-          <div className="h-72 overflow-y-scroll overflow-x-auto">
-            <Table>
+        <div className="flex-1 min-h-0 relative border rounded-sm border-gray-200 overflow-hidden">
+          <div className="h-full overflow-y-auto">
+            <Table className="w-full">
               <TableHeader className="sticky top-0 z-20 bg-gray-100">
                 <TableRow>
                   <TableHead className="py-3 w-[30%] font-bold text-gray-700">
@@ -101,6 +102,7 @@ const DashBoardTable = ({ equipData, loading }: Props) => {
                             </span>
                           </div>
                         </TableCell>
+
                         <TableCell className="pr-10">
                           <div className="flex items-center gap-3">
                             <div className="flex-1 bg-gray-100 rounded-full h-2 overflow-hidden border border-gray-50">

@@ -33,6 +33,38 @@ export const useExcel = () => {
     );
   };
 
+  const downloadTemplate = () => {
+    const headers = [
+      [
+        "작업지시번호",
+        "제품명",
+        "생산수량",
+        "불량수량",
+        "시작일시",
+        "담당자ID",
+        "비고",
+      ],
+    ];
+
+    const ws = XLSX.utils.aoa_to_sheet(headers);
+
+    ws["!cols"] = [
+      { wch: 14 },
+      { wch: 18 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 18 },
+      { wch: 12 },
+      { wch: 20 },
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "업로드양식");
+
+    const today = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `Performance_Upload_Template_${today}.xlsx`);
+  };
+
   const uploadExcel = (file: File): Promise<Partial<Performance>[]> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -61,5 +93,5 @@ export const useExcel = () => {
     });
   };
 
-  return { downloadExcel, uploadExcel };
+  return { downloadExcel, downloadTemplate, uploadExcel };
 };

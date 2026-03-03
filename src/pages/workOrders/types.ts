@@ -9,6 +9,7 @@ export type WorkOrder = {
   assignedLine: string;
   startDate: string;
   dueDate: string;
+  operatorName: string;
 };
 
 export type NewWorkOrderForm = {

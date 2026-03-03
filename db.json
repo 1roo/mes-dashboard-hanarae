@@ -527,6 +527,27 @@
       "endTime": "2025-05-05T10:00:00",
       "operatorId": "2401",
       "id": 7
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 333,
+      "defectQty": 3,
+      "startTime": "2024-01-22T03:00:00",
+      "endTime": "2024-01-24T04:00:00",
+      "operatorId": "2401",
+      "id": 8
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 55,
+      "defectQty": 5,
+      "startTime": "2026-03-06T17:46:00",
+      "endTime": "2026-03-12T19:44:00",
+      "operatorId": "2401",
+      "note": "",
+      "id": 9
     }
   ],
   "users": [

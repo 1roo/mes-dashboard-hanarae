@@ -11,6 +11,9 @@ type Props = {
   onCancelNew: () => void;
 };
 
+const inputClass =
+  "w-full min-w-0 border border-blue-400 px-2 py-1 rounded-sm bg-white text-center";
+
 const AddWorkOrderForm = ({
   newForm,
   onChangeNewForm,
@@ -19,47 +22,49 @@ const AddWorkOrderForm = ({
 }: Props) => {
   return (
     <TableRow className="bg-blue-50">
-      <TableCell className="p-2">
+      <TableCell className="p-2 text-center align-middle">
         <input
           value={newForm.id}
           onChange={onChangeNewForm("id")}
           placeholder="WO-2024-013"
-          className="w-full border border-blue-400 px-2 py-1 rounded-sm bg-white"
+          className={inputClass}
         />
       </TableCell>
 
-      <TableCell className="p-2">
+      <TableCell className="p-2 text-center align-middle">
         <input
           value={newForm.productName}
           onChange={onChangeNewForm("productName")}
           placeholder="제품명"
-          className="w-full border border-blue-400 px-2 py-1 rounded-sm bg-white"
+          className={inputClass}
         />
       </TableCell>
 
-      <TableCell className="p-2">
+      <TableCell className="p-2 text-center align-middle">
         <input
           value={newForm.plannedQty}
           onChange={onChangeNewForm("plannedQty")}
           type="number"
           placeholder="0"
-          className="w-full border border-blue-400 px-2 py-1 rounded-sm bg-white"
+          className={inputClass}
         />
       </TableCell>
 
-      <TableCell className="p-2">
+      <TableCell className="p-2 text-center align-middle">
         <input
           value={newForm.startDate}
           onChange={onChangeNewForm("startDate")}
           type="date"
-          className="w-full border border-blue-400 px-2 py-1 rounded-sm bg-white"
+          className={inputClass}
         />
       </TableCell>
 
-      <TableCell className="p-2 text-gray-600 font-semibold">대기</TableCell>
+      <TableCell className="p-2 text-center align-middle text-gray-600 font-semibold">
+        대기
+      </TableCell>
 
-      <TableCell className="p-2">
-        <div className="flex items-center gap-2">
+      <TableCell className="p-2 text-center align-middle w-28">
+        <div className="flex items-center justify-center gap-2">
           <button
             type="button"
             onClick={onSaveNew}

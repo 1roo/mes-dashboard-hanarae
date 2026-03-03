@@ -18,6 +18,7 @@ type Props = {
   showEmpty: boolean;
   children?: React.ReactNode;
   onUpload: (data: Partial<WorkOrder>[]) => void;
+  onDownloadTemplate: () => void;
 };
 
 const WorkOrderTable = ({
@@ -26,6 +27,7 @@ const WorkOrderTable = ({
   showEmpty,
   children,
   onUpload,
+  onDownloadTemplate,
 }: Props) => {
   const { downloadExcel, uploadExcel } = useExcel();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,11 +36,11 @@ const WorkOrderTable = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="border border-gray-200 rounded-md bg-white shadow-sm">
-        <Table>
+      <div className="border border-gray-200 rounded-md bg-white shadow-sm overflow-y-auto">
+        <Table className="w-full table-fixed">
           <TableHeader>
             <TableRow className="bg-gray-500 hover:bg-gray-500">
-              <TableHead className="text-white font-bold text-center">
+              <TableHead className="text-white font-bold text-left">
                 작업지시번호
               </TableHead>
               <TableHead className="text-white font-bold text-center">
@@ -53,23 +55,20 @@ const WorkOrderTable = ({
               <TableHead className="text-white font-bold text-center">
                 상태
               </TableHead>
-              <TableHead />
+              <TableHead className="w-36" />
             </TableRow>
           </TableHeader>
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="py-6 text-center text-gray-500"
-                >
+                <TableCell colSpan={6} className="py-6 text-left text-gray-500">
                   <Spinner />
                 </TableCell>
               </TableRow>
             ) : (
               rows.map((u) => (
                 <TableRow key={u.id}>
-                  <TableCell className="font-semibold text-center">
+                  <TableCell className="font-semibold text-left">
                     {u.id}
                   </TableCell>
                   <TableCell className="text-center">{u.productName}</TableCell>
@@ -99,7 +98,7 @@ const WorkOrderTable = ({
             {!loading && rows.length > 0 && (
               <TableRow className="bg-gray-50 border-t">
                 <TableCell
-                  className="font-bold text-gray-700 text-left pl-32"
+                  className="font-bold text-gray-700 text-left"
                   colSpan={2}
                 >
                   합계 ({rows.length}건)
@@ -108,7 +107,7 @@ const WorkOrderTable = ({
                   {totalPlannedQty.toLocaleString()}
                 </TableCell>
 
-                <TableCell colSpan={4} />
+                <TableCell colSpan={3} />
               </TableRow>
             )}
           </TableBody>
@@ -130,6 +129,14 @@ const WorkOrderTable = ({
             }
           }}
         />
+
+        <button
+          type="button"
+          onClick={onDownloadTemplate}
+          className="text-xs font-bold text-gray-700 px-2 py-1 border border-gray-200 rounded-sm bg-white hover:bg-gray-50"
+        >
+          양식 다운로드
+        </button>
         <button
           onClick={() => fileInputRef.current?.click()}
           className="text-xs font-bold text-blue-600 px-2 py-1 border border-blue-200 rounded-sm bg-blue-50"

@@ -4,11 +4,13 @@ import { statusOptions } from "./constants";
 import type { Status } from "./types";
 import { useWorkOrderManagement } from "./useWorkOrderManagement";
 import { useAuth } from "../../auth/useAuth";
+import { useExcel } from "./useExcel";
 
 const WorkOrdersPage = () => {
   const wm = useWorkOrderManagement();
   const { user } = useAuth();
   const isAdmin = user?.role === "ADMIN";
+  const { downloadTemplate } = useExcel();
 
   return (
     <div className="relative pb-24">
@@ -53,6 +55,7 @@ const WorkOrdersPage = () => {
         rows={wm.pagedRows}
         onUpload={wm.onUploadExcel}
         showEmpty={!wm.loading && wm.filteredRows.length === 0}
+        onDownloadTemplate={downloadTemplate}
       >
         {wm.isAdding && (
           <AddWorkOrderForm
