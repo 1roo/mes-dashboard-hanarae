@@ -45,7 +45,7 @@ const PopPage = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-full overflow-hidden">
       <div className="flex justify-between items-center mb-4 bg-white p-3 rounded-md shadow-sm">
         <div className="flex flex-col gap-2">
           <div className="flex bg-gray-100 p-1 rounded-md w-fit">

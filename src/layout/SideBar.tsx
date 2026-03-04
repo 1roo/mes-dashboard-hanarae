@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-import { setSaveLogin } from "../pages/login/loginStorage";
 
 type Role = "ADMIN" | "USER";
 
@@ -12,8 +11,7 @@ type MenuItem = {
 };
 
 const SideBar: React.FC = () => {
-  const navigate = useNavigate();
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
 
   const role: Role = user?.role ?? "USER";
 
@@ -33,21 +31,10 @@ const SideBar: React.FC = () => {
     [items, role],
   );
 
-  const onLogout = () => {
-    logout();
-
-    setSaveLogin(false);
-
-    navigate("/", { replace: true });
-  };
-
   return (
-    <aside className="w-64 h-screen bg-white border-r flex flex-col">
-      <div className="p-4 border-b">
-        <div className="text-2xl font-extrabold">MES</div>
-        <div className="text-sm text-gray-500">
-          {role === "ADMIN" ? "관리자" : "사용자"}
-        </div>
+    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col shrink-0">
+      <div className="p-2">
+        <div className="text-3xl text-center font-extrabold">MES</div>
       </div>
 
       <nav className="flex-1 p-3 space-y-1">
@@ -68,16 +55,6 @@ const SideBar: React.FC = () => {
           </NavLink>
         ))}
       </nav>
-
-      <div className="p-3 border-t">
-        <button
-          type="button"
-          onClick={onLogout}
-          className="w-full bg-gray-900 text-white rounded-md py-2 text-sm font-semibold hover:bg-gray-800 transition"
-        >
-          로그아웃
-        </button>
-      </div>
     </aside>
   );
 };
