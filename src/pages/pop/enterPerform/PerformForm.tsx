@@ -11,6 +11,8 @@ export type ProductionResultPayload = {
   endTime: string;
   operatorId: string;
   note: string;
+  createdAt: string;
+  status: WorkStatus;
 };
 
 type Props = {
@@ -23,9 +25,19 @@ type Props = {
 };
 
 const toApiIso = (v: string) => {
-  // datetime-local: "2024-01-15T08:00" -> "2024-01-15T08:00:00"
   if (!v) return "";
   return `${v}:00`;
+};
+
+const nowApiIso = () => {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mi = String(d.getMinutes()).padStart(2, "0");
+  const ss = String(d.getSeconds()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}`;
 };
 
 const PerformForm = ({ onSubmit }: Props) => {
@@ -60,6 +72,8 @@ const PerformForm = ({ onSubmit }: Props) => {
       startTime: toApiIso(startTime),
       endTime: toApiIso(endTime),
       note: note.trim(),
+      createdAt: nowApiIso(),
+      status,
     });
   };
 
@@ -80,7 +94,9 @@ const PerformForm = ({ onSubmit }: Props) => {
     }`;
 
   const smallInputBorder = (value: string) =>
-    `border rounded-md h-10 px-2 ${value ? "border-blue-500" : "border-gray-300"}`;
+    `border rounded-md h-10 px-2 ${
+      value ? "border-blue-500" : "border-gray-300"
+    }`;
 
   return (
     <div>

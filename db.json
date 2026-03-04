@@ -548,6 +548,111 @@
       "operatorId": "2401",
       "note": "",
       "id": 9
+    },
+    {
+      "workOrderId": "WO-2024-003",
+      "productName": "샤프트 C타입",
+      "producedQty": 33,
+      "defectQty": 3,
+      "startTime": "2026-03-04T10:10:00",
+      "endTime": "2026-03-06T09:10:00",
+      "operatorId": "2401",
+      "note": "",
+      "id": 10
+    },
+    {
+      "workOrderId": "WO-2024-003",
+      "productName": "샤프트 C타입",
+      "producedQty": 6666,
+      "defectQty": 66,
+      "startTime": "2026-03-04T11:39:00",
+      "endTime": "2026-03-04T12:39:00",
+      "operatorId": "2401",
+      "note": "",
+      "id": 11
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 444,
+      "defectQty": 4,
+      "startTime": "2026-03-04T09:41:00",
+      "endTime": "2026-03-04T10:41:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T09:41:53",
+      "id": 12
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 55,
+      "defectQty": 0,
+      "startTime": "2026-03-04T10:50:00",
+      "endTime": "2026-03-04T11:50:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T09:50:15",
+      "id": 13
+    },
+    {
+      "workOrderId": "WO-2024-003",
+      "productName": "샤프트 C타입",
+      "producedQty": 555,
+      "defectQty": 5,
+      "startTime": "2026-03-04T10:52:00",
+      "endTime": "2026-03-04T11:52:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T09:52:56",
+      "id": 14
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 66,
+      "defectQty": 6,
+      "startTime": "2026-03-04T11:02:00",
+      "endTime": "2026-03-04T13:02:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T10:02:57",
+      "id": 15
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 433,
+      "defectQty": 0,
+      "startTime": "2026-03-02T10:06:00",
+      "endTime": "2026-03-06T10:06:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T10:07:01",
+      "id": 16
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 6766,
+      "defectQty": 7,
+      "startTime": "2026-03-03T10:10:00",
+      "endTime": "2026-03-04T10:10:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-04T10:11:05",
+      "status": "IN_PROGRESS",
+      "id": 17
+    },
+    {
+      "workOrderId": "WO-2024-003",
+      "productName": "샤프트 C타입",
+      "producedQty": 66666,
+      "defectQty": 3,
+      "startTime": "2026-03-04T15:25Tundefined:00",
+      "endTime": "2026-03-04T10:21Tundefined:00",
+      "operatorId": "2401",
+      "id": 18
     }
   ],
   "users": [

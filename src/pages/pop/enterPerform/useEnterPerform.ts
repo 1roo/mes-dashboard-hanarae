@@ -2,10 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { instance } from "../../../shared/axios/axios";
 import type { User } from "../../../shared/types";
 import type { WorkOrder } from "../../workOrders/types";
+import type { ProductionResult } from "./type";
 
 export const useEnterPerform = () => {
   const [user, setUser] = useState<User | null>(null);
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
+  const [productionResults, setProductionResults] = useState<
+    ProductionResult[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,20 +18,10 @@ export const useEnterPerform = () => {
 
       try {
         const stored = sessionStorage.getItem("auth_user");
-        if (!stored) {
-          setUser(null);
-          setWorkOrders([]);
-          return;
-        }
+        if (!stored) return;
 
         const authUser = JSON.parse(stored);
         const employeeId = String(authUser.employeeId ?? "").trim();
-
-        if (!employeeId) {
-          setUser(null);
-          setWorkOrders([]);
-          return;
-        }
 
         const userRes = await instance.get<User[]>("/users", {
           params: { employeeId },
@@ -36,20 +30,17 @@ export const useEnterPerform = () => {
         const fetchedUser = userRes.data?.[0] ?? null;
         setUser(fetchedUser);
 
-        if (!fetchedUser?.name) {
-          setWorkOrders([]);
-          return;
-        }
-
-        const woRes = await instance.get<WorkOrder[]>("/workOrders", {
-          params: { operatorName: fetchedUser.name },
-        });
+        const [woRes, prRes] = await Promise.all([
+          instance.get<WorkOrder[]>("/workOrders", {
+            params: { operatorName: fetchedUser?.name },
+          }),
+          instance.get<ProductionResult[]>("/productionResults"),
+        ]);
 
         setWorkOrders(woRes.data ?? []);
+        setProductionResults(prRes.data ?? []);
       } catch (error) {
-        console.error("Failed to fetch user/workOrders", error);
-        setUser(null);
-        setWorkOrders([]);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -69,5 +60,27 @@ export const useEnterPerform = () => {
 
   const assignedLine = assignedLines[0] ?? "";
 
-  return { user, workOrders, assignedLine, assignedLines, loading };
+  const todayResults = useMemo(() => {
+    if (!user?.employeeId) return [];
+
+    const today = new Date().toISOString().slice(0, 10);
+
+    return productionResults.filter((r) => {
+      const operatorMatch =
+        String(r.operatorId ?? "").trim() === String(user.employeeId).trim();
+
+      const dateMatch = String(r.createdAt ?? "").slice(0, 10) === today;
+
+      return operatorMatch && dateMatch;
+    });
+  }, [productionResults, user?.employeeId]);
+
+  return {
+    user,
+    workOrders,
+    assignedLine,
+    assignedLines,
+    productionResults: todayResults,
+    loading,
+  };
 };

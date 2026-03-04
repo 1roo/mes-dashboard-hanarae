@@ -128,11 +128,6 @@ const Modal = ({ onClose }: ModalProps) => {
     if (!defectQty.trim()) next.defectQty = "불량수량은 필수입니다.";
     else if (!isDigitsOnly(unformatNumber(defectQty)))
       next.defectQty = "불량수량은 숫자만 입력하세요.";
-    if (!startTime.trim()) next.startTime = "시작시간 필수 (YYYY-MM-DD HH:mm)";
-    else if (!isRealDateTime(startTime))
-      next.startTime = "올바른 형식이 아닙니다.";
-    if (!endTime.trim()) next.endTime = "종료시간 필수 (YYYY-MM-DD HH:mm)";
-    else if (!isRealDateTime(endTime)) next.endTime = "올바른 형식이 아닙니다.";
 
     if (isRealDateTime(startTime) && isRealDateTime(endTime)) {
       if (new Date(toDbDateTime(startTime)) > new Date(toDbDateTime(endTime))) {
@@ -155,6 +150,7 @@ const Modal = ({ onClose }: ModalProps) => {
       endTime: toDbDateTime(endTime),
       operatorId: user?.employeeId ?? user?.id ?? "",
       note: note.trim() || undefined,
+      createdAt: new Date().toISOString(),
     };
 
     setSaving(true);
@@ -284,39 +280,24 @@ const Modal = ({ onClose }: ModalProps) => {
           <div className="flex flex-col">
             <label className="text-sm">시작시간 *</label>
             <input
+              type="datetime-local"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
               disabled={saving}
-              className={cn(
-                "border p-2 bg-gray-100",
-                errors.startTime && "border-red-500",
-              )}
+              className="border p-2 bg-gray-100"
               placeholder="2024-01-16 08:00"
             />
-            {errors.startTime && (
-              <span className="text-xs text-red-500 mt-1">
-                {errors.startTime}
-              </span>
-            )}
           </div>
 
           <div className="flex flex-col">
             <label className="text-sm">종료시간 *</label>
             <input
+              type="datetime-local"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
               disabled={saving}
-              className={cn(
-                "border p-2 bg-gray-100",
-                errors.endTime && "border-red-500",
-              )}
-              placeholder="2024-01-16 13:00"
+              className="border p-2 bg-gray-100"
             />
-            {errors.endTime && (
-              <span className="text-xs text-red-500 mt-1">
-                {errors.endTime}
-              </span>
-            )}
           </div>
 
           <div className="flex flex-col">

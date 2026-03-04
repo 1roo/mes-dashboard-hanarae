@@ -25,7 +25,7 @@ type FormSubmitPayload = Omit<
 >;
 
 const EnterPerformPage = () => {
-  const { user, workOrders, loading } = useEnterPerform();
+  const { user, workOrders, loading, productionResults } = useEnterPerform();
   const [selectedId, setSelectedId] = useState<string>("");
 
   const myLine = useMemo(() => workOrders[0]?.assignedLine ?? "", [workOrders]);
@@ -61,6 +61,8 @@ const EnterPerformPage = () => {
       endTime: form.endTime,
       operatorId,
       note: form.note ?? "",
+      createdAt: form.createdAt,
+      status: form.status,
     };
 
     try {
@@ -155,7 +157,7 @@ const EnterPerformPage = () => {
           <div className="flex flex-end">
             <div>
               <span className="text-xs text-gray-600">계획</span>
-              <p className="font-bold text-xl text-violet-400">
+              <p className="font-bold text-xl text-violet-400 text-center">
                 {selectedWorkOrder?.plannedQty?.toLocaleString?.() ??
                   selectedWorkOrder?.plannedQty}
               </p>
@@ -163,7 +165,7 @@ const EnterPerformPage = () => {
 
             <div className="mx-5">
               <span className="text-xs text-gray-600">완료</span>
-              <p className="font-bold text-xl text-yellow-500">
+              <p className="font-bold text-xl text-yellow-500 text-center">
                 {selectedWorkOrder?.completedQty?.toLocaleString?.() ??
                   selectedWorkOrder?.completedQty}
               </p>
@@ -171,7 +173,7 @@ const EnterPerformPage = () => {
 
             <div className="mr-5">
               <span className="text-xs text-gray-600">잔여</span>
-              <p className="font-bold text-xl text-gray-400">
+              <p className="font-bold text-xl text-gray-400 text-center">
                 {selectedWorkOrder
                   ? (
                       selectedWorkOrder.plannedQty -
@@ -183,7 +185,7 @@ const EnterPerformPage = () => {
 
             <div>
               <span className="text-xs text-gray-600">진행률</span>
-              <p className="font-bold text-xl text-orange-400">
+              <p className="font-bold text-xl text-orange-400 text-center">
                 {selectedWorkOrder && selectedWorkOrder.plannedQty > 0
                   ? Math.round(
                       (selectedWorkOrder.completedQty /
@@ -203,7 +205,7 @@ const EnterPerformPage = () => {
         </div>
 
         <div className="w-1/2 bg-white p-3 rounded-md shadow-sm ml-2">
-          <History />
+          <History productionResults={productionResults} />
         </div>
       </article>
     </div>

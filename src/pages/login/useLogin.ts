@@ -53,7 +53,7 @@ export const useLogin = () => {
 
       navigate(from, { replace: true });
     } catch (err) {
-      toast.error("서버 통신에 실패했습니다.");
+      toast.error("아이디/비번을 확인하세요");
       console.error(err);
     }
   };
