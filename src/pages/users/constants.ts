@@ -1,4 +1,5 @@
-import { type NewUserForm, type User } from "./types";
+import { type NewUserForm } from "./types";
+import { type User } from "../../shared/types/index";
 
 export const departments: User["department"][] = ["생산팀", "품질팀", "설비팀"];
 export const positions: User["position"][] = ["사원", "주임", "대리"];

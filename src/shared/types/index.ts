@@ -21,4 +21,5 @@ export type User = {
   password: string;
   role: "ADMIN" | "USER";
   status: "ACTIVE" | "INACTIVE";
+  createdAt?: string;
 };

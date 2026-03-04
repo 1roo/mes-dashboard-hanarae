@@ -100,6 +100,7 @@ export const useWorkOrderManagement = () => {
       assignedLine: "",
       startDate: newForm.startDate,
       dueDate: calcDueDate(newForm.startDate, 3),
+      operatorName: "",
     };
 
     setLoading(true);
@@ -135,6 +136,7 @@ export const useWorkOrderManagement = () => {
           assignedLine: "",
           startDate: item.startDate,
           dueDate: calcDueDate(item.startDate),
+          operatorName: "",
         };
         const res = await instance.post<WorkOrder>("/workOrders", payload);
         successCount++;

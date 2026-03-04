@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { instance } from "../../shared/axios/axios";
 import { initialForm, PAGE_SIZE } from "./constants";
-import { type NewUserForm, type User } from "./types";
+import { type NewUserForm } from "./types";
+import { type User } from "../../shared/types";
 
 export const useUserManagement = () => {
   const [users, setUsers] = useState<User[]>([]);
