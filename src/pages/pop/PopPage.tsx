@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { RiResetRightFill } from "react-icons/ri";
-import LinePage from "./line/LingPage";
+import LinePage from "./line/LinePage";
 import type { LineValue } from "./line/type";
 import EnterPerformPage from "./enterPerform/EnterPerformPage";
 

@@ -22,24 +22,23 @@ const LinePage = ({ refreshKey, onRefreshed, selectedLine }: Props) => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="max-h-screen p-2">
+    <div className="h-screen p-2 flex flex-col min-h-0">
       <SummaryCard metrics={metrics} selectedLine={selectedLine} />
 
-      <div className="flex justify-between mt-5">
-        <div className="w-1/3">
+      <div className="flex justify-between mt-5 flex-1 min-h-0 gap-5">
+        <div className="w-1/3 min-h-0 h-full">
           <WorkOrderPanel rows={lineRows} selectedLine={selectedLine} />
         </div>
 
-        <div className="w-1/3 mx-5">
+        <div className="w-1/3 min-h-0 h-full">
           <HourlyProduction data={hourlyProduction} />
         </div>
 
-        <div className="w-1/3">
+        <div className="w-1/3 min-h-0 h-full">
           <EquipmentPanel rows={equipment} selectedLine={selectedLine} />
         </div>
       </div>
     </div>
   );
 };
-
 export default LinePage;
