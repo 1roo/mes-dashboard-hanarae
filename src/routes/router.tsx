@@ -5,6 +5,7 @@ import PrivateLayout from "../layout/PrivateLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import AdminRoute from "../auth/AdminRoute";
 import Spinner from "../shared/ui/Spinner";
+import TablePractice from "../pages/table/TablePractice";
 
 const PopPage = React.lazy(() => import("../pages/pop/PopPage"));
 const PerformancePage = React.lazy(
@@ -59,6 +60,14 @@ export const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Spinner />}>
                 <DashBoardPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "/table",
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <TablePractice />
               </Suspense>
             ),
           },
