@@ -45,7 +45,7 @@ const WorkOrderCard = ({ row }: { row: WorkOrder }) => {
           <div className="grid grid-cols-3 gap-4 mt-3">
             <div>
               <div className="text-slate-500 text-xs">계획</div>
-              <div className="text-slate-400 text-xl font-extrabold">
+              <div className="text-violet-400 text-xl font-extrabold">
                 {formatNumber(planned)}
               </div>
             </div>
