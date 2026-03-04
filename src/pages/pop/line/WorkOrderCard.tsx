@@ -16,7 +16,7 @@ const WorkOrderCard = ({ row }: { row: WorkOrder }) => {
   return (
     <div
       className={[
-        "rounded-xl p-4 border",
+        "rounded-xl p-4 border mb-3",
         isProgress ? " border-blue-500/70" : " border-slate-400/60 opacity-70",
       ].join(" ")}
     >
