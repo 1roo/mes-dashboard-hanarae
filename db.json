@@ -653,6 +653,45 @@
       "endTime": "2026-03-04T10:21Tundefined:00",
       "operatorId": "2401",
       "id": 18
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "producedQty": 444,
+      "defectQty": 2,
+      "startTime": "2026-03-05T14:57:00",
+      "endTime": "2026-03-05T16:57:00",
+      "operatorId": "2401",
+      "note": "",
+      "createdAt": "2026-03-05T12:57:42",
+      "status": "IN_PROGRESS",
+      "id": 19
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "operatorId": "2401",
+      "producedQty": 9999,
+      "defectQty": 3,
+      "startTime": "2026-03-05T13:04:00",
+      "endTime": "2026-03-05T15:04:00",
+      "note": "",
+      "createdAt": "2026-03-05T13:04:48",
+      "status": "PENDING",
+      "id": 20
+    },
+    {
+      "workOrderId": "WO-2024-001",
+      "productName": "모터 하우징 A",
+      "operatorId": "2401",
+      "producedQty": 22222,
+      "defectQty": 0,
+      "startTime": "2026-03-05T15:15:00",
+      "endTime": "2026-03-05T17:15:00",
+      "note": "",
+      "createdAt": "2026-03-05T13:15:44",
+      "status": "COMPLETED",
+      "id": 21
     }
   ],
   "users": [

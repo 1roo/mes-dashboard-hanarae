@@ -1,0 +1,71 @@
+import { useState } from "react";
+import type { FormEvent } from "react";
+import toast from "react-hot-toast";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../useAuth";
+import { instance } from "../../shared/axios/axios";
+import { setSaveLogin } from "../storage/loginStorage";
+import type { DbUser } from "../../shared/types";
+
+export const useLogin = () => {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [keepLogin, setKeepLogin] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const res = await instance.post("/auth/login", {
+        username: id.trim(),
+        password: pw,
+      });
+
+      const user = res.data as DbUser | null;
+
+      if (!user) {
+        toast.error("아이디 또는 비밀번호가 올바르지 않습니다.");
+        return;
+      }
+
+      if (user.status !== "ACTIVE") {
+        toast.error("비활성화된 계정입니다.");
+        return;
+      }
+
+      setSaveLogin(keepLogin);
+
+      const defaultPath = "/dashboard";
+      const from =
+        (location.state as { from?: string } | null)?.from || defaultPath;
+
+      login(
+        {
+          id: user.username,
+          role: user.role,
+          employeeId: user.employeeId,
+        },
+        keepLogin,
+      );
+
+      navigate(from, { replace: true });
+    } catch (err) {
+      toast.error("아이디/비번을 확인하세요");
+      console.error(err);
+    }
+  };
+
+  return {
+    id,
+    setId,
+    pw,
+    setPw,
+    keepLogin,
+    setKeepLogin,
+    onSubmit,
+  };
+};
