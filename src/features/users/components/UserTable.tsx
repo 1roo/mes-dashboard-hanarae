@@ -119,10 +119,10 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
 
   return (
     <>
-      <div className="border text-center border-gray-200 rounded-md  bg-white shadow-sm">
+      <div className="border border-gray-200 rounded-md bg-white shadow-sm overflow-hidden text-center">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-500 text-white ">
+            <TableRow className="bg-gray-500 text-white">
               <TableHead className="text-white font-bold text-center">
                 사번
               </TableHead>
@@ -141,7 +141,7 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
               <TableHead className="text-white font-bold text-center">
                 상태
               </TableHead>
-              <TableHead className="w-32"></TableHead>
+              <TableHead className="w-32" />
             </TableRow>
           </TableHeader>
 
@@ -258,7 +258,7 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
 
                     <TableCell>
                       {editing ? (
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 justify-center">
                           <button
                             type="button"
                             disabled={saving}
@@ -277,7 +277,7 @@ const UserTable = ({ users, isLoading, error, onUpdate, onDelete }: Props) => {
                           </button>
                         </div>
                       ) : (
-                        <div className="flex">
+                        <div className="flex justify-center">
                           <button
                             type="button"
                             onClick={() => onStartEdit(u)}

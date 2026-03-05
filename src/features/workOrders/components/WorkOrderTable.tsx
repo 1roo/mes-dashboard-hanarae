@@ -39,7 +39,7 @@ const WorkOrderTable = ({
       <div className="border border-gray-200 rounded-md bg-white shadow-sm overflow-y-auto">
         <Table className="w-full table-fixed">
           <TableHeader>
-            <TableRow className="bg-gray-500 hover:bg-gray-500">
+            <TableRow className="bg-gray-500 ">
               <TableHead className="text-white font-bold text-left">
                 작업지시번호
               </TableHead>

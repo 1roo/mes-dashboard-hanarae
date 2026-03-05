@@ -39,10 +39,10 @@ const PerformanceTable = ({
 
   return (
     <div className="overflow-hidden">
-      <div className="border border-gray-200 rounded-md bg-white shadow-sm">
-        <Table className="border-gray-200 rounded-md bg-white shadow-sm">
+      <div className="border border-gray-200 rounded-md bg-white shadow-sm overflow-hidden">
+        <Table>
           <TableHeader>
-            <TableRow className="bg-gray-500 hover:bg-gray-500">
+            <TableRow className="bg-gray-500">
               <TableHead className="text-white font-bold">
                 작업지시번호
               </TableHead>
