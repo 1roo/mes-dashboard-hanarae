@@ -13,7 +13,7 @@ const HourlyProduction = ({ data }: Props) => {
   }));
 
   return (
-    <section className="h-full min-h-0 bg-white p-3 rounded-md shadow-sm flex flex-col">
+    <section className="h-136 overflow-hidden bg-white p-3 rounded-md shadow-sm flex flex-col">
       <div className="flex items-center justify-between px-4 py-3">
         <h3 className="text-sm font-bold">시간별 생산 현황</h3>
         <div className="text-xs text-slate-600 rounded-md bg-slate-300 px-2 py-1">
@@ -21,7 +21,7 @@ const HourlyProduction = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 overflow-y-auto ">
         <GroupedBarChart
           data={chartData}
           showNowLine

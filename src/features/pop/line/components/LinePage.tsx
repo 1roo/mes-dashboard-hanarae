@@ -22,7 +22,7 @@ const LinePage = ({ refreshKey, onRefreshed, selectedLine }: Props) => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="h-screen p-2 flex flex-col min-h-0">
+    <div className="p-2 flex flex-col min-h-0">
       <SummaryCard metrics={metrics} selectedLine={selectedLine} />
 
       <div className="flex justify-between mt-5 flex-1 min-h-0 gap-5">

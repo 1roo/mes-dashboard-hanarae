@@ -23,7 +23,7 @@ const EquipmentPanel = ({ rows, selectedLine }: Props) => {
         lineRows.length;
 
   return (
-    <section className="h-full min-h-0 bg-white p-3 rounded-md shadow-sm flex flex-col">
+    <section className="h-136 min-h-0 bg-white p-3 rounded-md shadow-sm flex flex-col">
       <div className="flex items-center justify-between px-4 py-3 mb-5">
         <h3 className="text-sm font-bold">설비 가동 현황</h3>
         <div className="text-xs text-slate-600 rounded-md bg-slate-300 px-2 py-1 ">
