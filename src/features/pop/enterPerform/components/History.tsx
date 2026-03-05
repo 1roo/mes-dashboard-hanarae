@@ -57,7 +57,7 @@ const History = ({ productionResults }: Props) => {
         <span className="font-bold">오늘 내 입력 히스토리</span>
       </div>
 
-      <div className="space-y-4">
+      <div className="h-96 overflow-y-auto space-y-4 pr-2">
         {sorted.length === 0 && (
           <div className="text-slate-400 text-sm py-10 text-center">
             오늘 입력한 실적이 없습니다.

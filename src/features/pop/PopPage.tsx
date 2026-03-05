@@ -13,9 +13,33 @@ const LINE_TABS: Array<{ label: string; value: LineValue }> = [
   { label: "라인 D", value: "라인 D" },
 ];
 
+const VIEW_KEY = "pop:view";
+const LINE_KEY = "pop:selectedLine";
+
+const isView = (v: unknown): v is View => v === "LINE" || v === "PERFORM";
+const isLine = (v: unknown): v is LineValue =>
+  v === "라인 A" || v === "라인 B" || v === "라인 C" || v === "라인 D";
+
 const PopPage = () => {
-  const [view, setView] = useState<View>("LINE");
-  const [selectedLine, setSelectedLine] = useState<LineValue>("라인 A");
+  // ✅ 최초 1회만 sessionStorage에서 복원 (없으면 기본값 LINE / 라인A)
+  const [view, setView] = useState<View>(() => {
+    const raw = sessionStorage.getItem(VIEW_KEY);
+    return isView(raw) ? raw : "LINE";
+  });
+
+  const [selectedLine, setSelectedLine] = useState<LineValue>(() => {
+    const raw = sessionStorage.getItem(LINE_KEY);
+    return isLine(raw) ? raw : "라인 A";
+  });
+
+  // ✅ 값이 바뀔 때마다 저장 -> 다음 진입/리마운트에도 유지
+  useEffect(() => {
+    sessionStorage.setItem(VIEW_KEY, view);
+  }, [view]);
+
+  useEffect(() => {
+    sessionStorage.setItem(LINE_KEY, selectedLine);
+  }, [selectedLine]);
 
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [refreshKey, setRefreshKey] = useState(0);
@@ -45,11 +69,12 @@ const PopPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <div className="flex justify-between items-center mb-4 bg-white p-3 rounded-md shadow-sm">
+    <div className="flex flex-col h-screen min-h-0 overflow-hidden">
+      <div className="shrink-0 flex justify-between items-center mb-4 bg-white p-3 rounded-md shadow-sm">
         <div className="flex flex-col gap-2">
           <div className="flex bg-gray-100 p-1 rounded-md w-fit">
             <button
+              type="button"
               onClick={() => setView("LINE")}
               className={`px-4 py-1 rounded-sm ${
                 view === "LINE" ? "bg-blue-600 text-white" : "text-gray-500"
@@ -59,6 +84,7 @@ const PopPage = () => {
             </button>
 
             <button
+              type="button"
               onClick={() => setView("PERFORM")}
               className={`px-4 py-1 rounded-sm ${
                 view === "PERFORM" ? "bg-blue-600 text-white" : "text-gray-500"
@@ -83,10 +109,11 @@ const PopPage = () => {
       </div>
 
       {view === "LINE" && (
-        <div className="flex gap-2">
+        <div className="shrink-0 flex gap-2 mb-2">
           {LINE_TABS.map((t) => (
             <button
               key={t.value}
+              type="button"
               onClick={() => setSelectedLine(t.value)}
               className={`px-3 py-1 rounded-md border ${
                 selectedLine === t.value
@@ -100,15 +127,17 @@ const PopPage = () => {
         </div>
       )}
 
-      {view === "LINE" && (
-        <LinePage
-          refreshKey={refreshKey}
-          onRefreshed={handleRefreshed}
-          selectedLine={selectedLine}
-        />
-      )}
-
-      {view === "PERFORM" && <EnterPerformPage />}
+      <div className="flex-1 min-h-0 overflow-auto">
+        {view === "LINE" ? (
+          <LinePage
+            refreshKey={refreshKey}
+            onRefreshed={handleRefreshed}
+            selectedLine={selectedLine}
+          />
+        ) : (
+          <EnterPerformPage />
+        )}
+      </div>
     </div>
   );
 };

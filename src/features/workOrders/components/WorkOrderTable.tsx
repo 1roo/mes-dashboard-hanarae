@@ -138,12 +138,14 @@ const WorkOrderTable = ({
           양식 다운로드
         </button>
         <button
+          type="button"
           onClick={() => fileInputRef.current?.click()}
           className="text-xs font-bold text-blue-600 px-2 py-1 border border-blue-200 rounded-sm bg-blue-50"
         >
           엑셀 업로드
         </button>
         <button
+          type="button"
           onClick={() => downloadExcel(rows)}
           className="text-xs font-bold text-green-600 px-2 py-1 border border-green-200 rounded-sm bg-green-50"
         >

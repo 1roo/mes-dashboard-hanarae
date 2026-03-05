@@ -189,6 +189,7 @@ const TablePractice = () => {
                     {editRowId === user.id ? (
                       <div className="flex justify-center gap-2">
                         <button
+                          type="button"
                           onClick={() => {
                             setRowData(
                               rowData.map((u) =>
@@ -202,8 +203,9 @@ const TablePractice = () => {
                           저장
                         </button>
                         <button
+                          type="button"
                           onClick={() => {
-                            setEditRowId(null); // 수정 모드 종료 (tempRowData는 자동 폐기)
+                            setEditRowId(null);
                             setTempRowData(null);
                           }}
                           className="text-red-500 hover:underline"
@@ -213,6 +215,7 @@ const TablePractice = () => {
                       </div>
                     ) : (
                       <button
+                        type="button"
                         onClick={() => {
                           setEditRowId(user.id);
                           setTempRowData(user);
@@ -240,12 +243,14 @@ const TablePractice = () => {
             {isGlobalEdit ? (
               <>
                 <button
+                  type="button"
                   onClick={saveGlobalEdit}
                   className="bg-green-600 text-white px-4 py-2 rounded-md font-medium shadow-sm hover:bg-green-700"
                 >
                   전체 저장
                 </button>
                 <button
+                  type="button"
                   onClick={() => setIsGlobalEdit(false)}
                   className="bg-white border px-4 py-2 rounded-md font-medium hover:bg-gray-50"
                 >
@@ -254,6 +259,7 @@ const TablePractice = () => {
               </>
             ) : (
               <button
+                type="button"
                 onClick={() => {
                   setTempGlobalData([...globalData]);
                   setIsGlobalEdit(true);

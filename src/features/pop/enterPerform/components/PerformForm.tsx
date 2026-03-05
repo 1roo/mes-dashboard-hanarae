@@ -2,12 +2,7 @@ import {
   usePerformForm,
   type PerformFormPayload,
 } from "../hooks/usePerformForm";
-
-export type ProductionResultPayload = {
-  workOrderId: string;
-  productName: string;
-  operatorId: string;
-} & PerformFormPayload;
+import type { FormEvent } from "react";
 
 type Props = {
   onSubmit?: (payload: PerformFormPayload) => Promise<void> | void;
@@ -33,10 +28,15 @@ const PerformForm = ({ onSubmit }: Props) => {
     buildPayload,
   } = usePerformForm();
 
-  const handleSubmit = async () => {
+  const onFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation(); // ✅ 상위 form/이벤트 버블링까지 차단
+
     setSubmittedOnce(true);
+
     const payload = buildPayload();
     if (!payload) return;
+
     await onSubmit?.(payload);
   };
 
@@ -60,7 +60,7 @@ const PerformForm = ({ onSubmit }: Props) => {
     `border rounded-md h-10 px-2 ${value ? "border-blue-500" : "border-gray-300"}`;
 
   return (
-    <div>
+    <form onSubmit={onFormSubmit} noValidate>
       <div className="flex items-center">
         <div className="w-1 h-3 bg-blue-400 mr-1" />
         <span className="font-bold">생산 실적 입력</span>
@@ -147,9 +147,7 @@ const PerformForm = ({ onSubmit }: Props) => {
           id="note"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className={`border rounded-md h-20 p-3 resize-none ${
-            note ? "border-blue-500" : "border-gray-300"
-          }`}
+          className={`border rounded-md h-20 p-3 resize-none ${note ? "border-blue-500" : "border-gray-300"}`}
           placeholder="특이사항(선택)"
         />
       </div>
@@ -167,13 +165,12 @@ const PerformForm = ({ onSubmit }: Props) => {
       )}
 
       <button
-        type="button"
-        onClick={handleSubmit}
+        type="submit"
         className="w-full h-12 font-bold rounded-md bg-blue-400 mt-3 hover:bg-blue-300"
       >
         ✔ 실적 등록
       </button>
-    </div>
+    </form>
   );
 };
 
