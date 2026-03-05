@@ -7,6 +7,7 @@ import ProtectedRoute from "../../auth/guards/ProtectedRoute";
 import AdminRoute from "../../auth/guards/AdminRoute";
 import TablePractice from "../../pages/table/TablePractice";
 import Lazy from "./Lazy";
+import MesDashboardChartsDemo from "../../pages/chart/MesDashboardChartsDemo";
 
 const PopPage = React.lazy(() => import("../../features/pop/PopPage"));
 const PerformancePage = React.lazy(
@@ -69,6 +70,14 @@ export const router = createBrowserRouter([
             element: (
               <Lazy>
                 <TablePractice />
+              </Lazy>
+            ),
+          },
+          {
+            path: "chart",
+            element: (
+              <Lazy>
+                <MesDashboardChartsDemo />
               </Lazy>
             ),
           },

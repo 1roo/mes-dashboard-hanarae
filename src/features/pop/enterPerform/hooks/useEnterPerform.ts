@@ -63,7 +63,10 @@ export const useEnterPerform = () => {
     },
   });
 
-  const workOrders = workOrdersQ.data ?? [];
+  const workOrders = useMemo<WorkOrder[]>(
+    () => workOrdersQ.data ?? [],
+    [workOrdersQ.data],
+  );
 
   const assignedLines = useMemo(() => {
     const set = new Set<string>();

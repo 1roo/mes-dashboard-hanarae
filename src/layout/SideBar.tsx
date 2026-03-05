@@ -23,6 +23,7 @@ const SideBar: React.FC = () => {
       { label: "작업 지시 목록", to: "/workOrders", roles: ["USER", "ADMIN"] },
       { label: "실적등록", to: "/performance", roles: ["USER", "ADMIN"] },
       { label: "테이블연습", to: "/table", roles: ["USER", "ADMIN"] },
+      { label: "차트연습", to: "/chart", roles: ["USER", "ADMIN"] },
     ],
     [],
   );
