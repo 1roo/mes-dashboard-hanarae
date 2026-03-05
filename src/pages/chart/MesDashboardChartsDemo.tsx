@@ -34,9 +34,9 @@ export default function MesDashboardChartsDemo() {
 
   const defectRate = [
     { date: "03-01", rate: 1.4 },
-    { date: "03-02", rate: 1.1 },
-    { date: "03-03", rate: 1.7 },
-    { date: "03-04", rate: 1.3 },
+    { date: "03-02", rate: 3.1 },
+    { date: "03-03", rate: 6.7 },
+    { date: "03-04", rate: 2.3 },
     { date: "03-05", rate: 1.5 },
   ];
 
@@ -52,7 +52,7 @@ export default function MesDashboardChartsDemo() {
       <LineProductionBar data={byLine} />
       <DefectTypePie data={defectType} />
       <DefectRateArea data={defectRate} />
-      <PercentGauge title="가동률" value={86.4} />
+      <PercentGauge title="가동률" value={36.4} />
       <TargetVsActual data={targetVs} />
     </div>
   );

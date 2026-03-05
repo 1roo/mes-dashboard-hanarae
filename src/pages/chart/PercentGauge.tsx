@@ -1,4 +1,9 @@
-import { ResponsiveContainer, RadialBarChart, RadialBar } from "recharts";
+import {
+  ResponsiveContainer,
+  RadialBarChart,
+  RadialBar,
+  PolarAngleAxis,
+} from "recharts";
 import { ChartCard } from "./ChartCard";
 
 type GaugeProps = {
@@ -28,7 +33,15 @@ export function PercentGauge({ title, value }: GaugeProps) {
           startAngle={90}
           endAngle={-270}
         >
-          <RadialBar dataKey="value" cornerRadius={999} />
+          <PolarAngleAxis
+            type="number"
+            domain={[0, 100]}
+            dataKey="value"
+            tick={false}
+            axisLine={false}
+          />
+
+          <RadialBar dataKey="value" cornerRadius={999} background />
         </RadialBarChart>
       </ResponsiveContainer>
     </ChartCard>
